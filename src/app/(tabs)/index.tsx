@@ -1,5 +1,4 @@
 import { Text, View } from "react-native";
-import Button from "../components/Button";
 
 export default function Index() {
   return (
@@ -10,8 +9,7 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Button />
-      <Text>Edit app/index.tsx to edit this screen. Test.</Text>
+      <Text>Index Page</Text>
     </View>
   );
 }
