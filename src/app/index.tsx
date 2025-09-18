@@ -1,4 +1,5 @@
-import { Text, View } from "react-native";
+import { View } from "react-native";
+import CarDetail from "../components/CarDetail";
 
 export default function Index() {
   return (
@@ -9,7 +10,7 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Text>Index Page</Text>
+      <CarDetail></CarDetail>
     </View>
   );
 }
