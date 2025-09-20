@@ -4,7 +4,12 @@ import { StyleSheet, Text, View } from "react-native";
 const car_detail = () => {
   return (
     <View>
-      <Text>car_detail</Text>
+      <Text style={{ fontSize: 24, paddingBottom: 30 }}>
+        FOR TESTING PURPOSES ONLY!
+      </Text>
+      <Text style={{ fontWeight: "bold", fontSize: 24, color: "red" }}>
+        PAGE WILL BE DELETED IN THE FUTURE
+      </Text>
     </View>
   );
 };
