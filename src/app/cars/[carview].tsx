@@ -7,6 +7,10 @@ const Carview = () => {
   return (
     <View>
       <Text>This is the car with id: {carview}</Text>
+
+      <Text style={{ fontSize: 24, paddingBottom: 30, color: "red" }}>
+        old file, use /cars/car?id=1234
+      </Text>
     </View>
   );
 };
