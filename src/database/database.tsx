@@ -23,7 +23,7 @@ interface Car {
 interface User {
     id: string;
     first_name: string;
-    last_name: string:
+    last_name: string;
     date_of_birth: Date;
     email: string;
     //TODO rediscuss paymentinfo with taha and adam
