@@ -3,7 +3,6 @@
 // npm install @types/react-native-sqlite-storage
 
 import * as SQLite from 'react-native-sqlite-storage';
-import { SQLiteDatabase } from 'react-native-sqlite-storage';
 
 SQLite.DEBUG(true);
 SQLite.enablePromise(true);
@@ -13,10 +12,11 @@ interface Car {
     id: number;
     name: string;
     price: number;
-    transmission : 'manual' | 'automatic';
-    type_car: string;
+    seats: number;
+    transmission : 'Manual' | 'Automatic';
+    type: string;
     trunk_space: number;
-    //TODO engine rediscuss with taha and adam
+    engine: 'Petrol' | 'Electric' | 'Hybrid';
     is_available: boolean;
 }
 
