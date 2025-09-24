@@ -72,7 +72,7 @@ export const MOCK_CARS = [
         "name": "Hyundai Elantra",
         "price": 50.90,
         "seats": 5,
-        "transmission_type" : "automatic",
+        "transmission_type" : "Automatic",
         "type" : "Sedan",
         "trunk_space" : 4 ,// Corresponds to the numbers of luggage that can be fitted in the car
         "engine_type" : "Petrol",
