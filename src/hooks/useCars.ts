@@ -24,4 +24,4 @@ const useCars = (filters:CarFilters) => {
   };
 };
 
-export { useCars };
+export { CarFilters, useCars };
