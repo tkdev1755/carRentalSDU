@@ -1,5 +1,4 @@
 import { Button, View } from "react-native";
-import { FilterOptions } from "../components/FilterOptions";
 import { useFilterParams } from "../hooks/useFilterParams";
 
 export default function Index() {
@@ -21,8 +20,8 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <FilterOptions options={} /> {/* URL State set here */}
-      {/* <FlatList /> */}
+      {/*<FilterOptions options={} /> URL State set here
+       <FlatList /> */}
       <Button title="learn more" onPress={() => setFilters(f)} />
     </View>
   );
