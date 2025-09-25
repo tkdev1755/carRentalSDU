@@ -15,7 +15,7 @@ const fetcher = ([, id]: [string, string]) => {
  * // usage inside a component
  * const {car, isLoading, isError} = useCar('123ABC')
  * if (isLoading) return <Spinner />
- * if (isError) return <Error />
+ * if (error) return <Error />
  * if (!car) return <CarNotFoundError />
  */
 const useCar = (id: string | undefined) => {
@@ -23,7 +23,7 @@ const useCar = (id: string | undefined) => {
   return {
     car: data,
     isLoading,
-    isError: error,
+    error: error,
   };
 };
 
