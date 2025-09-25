@@ -12,7 +12,7 @@ class DataBaseManager {
     private db:ReturnType<typeof drizzle>;
 
     private constructor() {
-        const expodb= SQLite.openDatabase("carrental.db");
+        const expodb= SQLite.openDatabaseSync("carrental.db");
         this.db=drizzle(expodb, {schema});
     }
 
