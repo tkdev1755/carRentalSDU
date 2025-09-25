@@ -7,6 +7,7 @@ import { StyleSheet, Text, View } from "react-native";
 const Car = () => {
   // we use generics here to make sure that id is existing at compiletime
   const { id } = useLocalSearchParams<{ id: string }>();
+  const p = useLocalSearchParams();
 
   // we need some runtime safety
   if (!id || typeof id !== "string") {
@@ -22,7 +23,7 @@ const Car = () => {
   /*
     <CarDetail data={car} />
   */
-
+  //console.log(p.params.name);
   return (
     <View>
       <Text>Car with id: {id}</Text>

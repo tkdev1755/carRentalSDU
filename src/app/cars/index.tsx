@@ -9,7 +9,7 @@ const index = () => {
         <Button title="go to car details" />
       </Link>
 
-      <Link href="/cars/1234" push asChild>
+      <Link href="/cars/car?id=1234" push asChild>
         <Button title="go to car with id 1234" />
       </Link>
     </View>

@@ -1,3 +1,4 @@
+import CustomAppbar from "@/src/components/CustomAppbar";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { CommonActions } from "@react-navigation/native";
 import { Tabs } from "expo-router";
@@ -14,6 +15,10 @@ export default function TabLayout() {
     <PaperProvider>
       {/* Theme Provider might go here */}
       <Tabs
+        screenOptions={{
+          header: (props) => <CustomAppbar {...props} />,
+        }}
+        backBehavior="none" // we don't want to be able to "go back" -> use tabs instead
         tabBar={({ navigation, state, descriptors, insets }) => (
           <BottomNavigation.Bar
             navigationState={state}
@@ -78,14 +83,14 @@ export default function TabLayout() {
               getIcon(color, size, ICONS.PROFIILE),
           }}
         />
-      <Tabs.Screen
+        <Tabs.Screen
           name="testPage"
           options={{
-              title: "test page",
-              tabBarIcon: ({ color, size }) =>
-                  getIcon(color, size, ICONS.PROFIILE),
+            title: "test page",
+            tabBarIcon: ({ color, size }) =>
+              getIcon(color, size, ICONS.PROFIILE),
           }}
-      />
+        />
       </Tabs>
     </PaperProvider>
   );
