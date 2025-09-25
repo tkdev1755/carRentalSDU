@@ -1,11 +1,11 @@
 import { View } from "react-native";
-import FilterOptions from "../components/FilterOptions";
 import { useCars } from "../hooks/useCars";
+import {useFilterParams} from "@/src/hooks/useFilterParams";
 
 export default function Index() {
   // const params = useLocalSearchParams();
-  const { filters, setFilters } = useFilterParams();
-  const { cars, isLoading, error } = useCars(filters);
+  //const { filters, setFilters } = useFilterParams();
+  //const { cars, isLoading, error } = useCars(filters);
 
   // const parsedFilters = useMemo(
   //   () => ({
@@ -22,8 +22,7 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <FilterOptions /> {/* URL State set here */}
-      {/* <FlatList /> */}
+
     </View>
   );
 }

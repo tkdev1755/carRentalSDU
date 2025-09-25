@@ -1,30 +1,45 @@
-import { router, useLocalSearchParams } from "expo-router";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { View, StyleSheet } from "react-native";
+import { Chip } from "react-native-paper";
 
-/**
- * This component will set the state in the URL and update it according to user input
- * @see https://docs.expo.dev/router/reference/url-parameters/
- */
-
-const FilterOptions = () => {
-  const params = useLocalSearchParams();
-  return (
-    <View>
-      <Text>FilterOptions</Text>
-      <Text
-        onPress={() =>
-          router.setParams({
-            price: 34,
-          })
-        }
-      >
-        Set Price to 34
-      </Text>
-    </View>
-  );
+type FilterOptionProps = {
+    name: string;
+    associatedFunction: () => void;
 };
 
-export default FilterOptions;
+export const FilterOption: React.FC<FilterOptionProps> = ({ name, associatedFunction }) => {
+    return (
+        <Chip onPress={associatedFunction} style={{ marginRight: 8 }}>
+            {name}
+        </Chip>
+    );
+};
 
-const styles = StyleSheet.create({});
+// ✅ Composant FilterOptions (reçoit un tableau d’options en props)
+type FilterOptionsProps = {
+    options: { name: string; associatedFunction: () => void }[];
+};
+
+export const FilterOptions: React.FC<FilterOptionsProps> = ({ options }) => {
+    return (
+        <View style={styles.row}>
+            {options.map((option, index) => (
+                <FilterOption
+                    key={index}
+                    name={option.name}
+                    associatedFunction={option.associatedFunction}
+                />
+            ))}
+        </View>
+    );
+};
+
+
+
+const styles = StyleSheet.create({
+    row: {
+        flexDirection: "row",
+        alignItems: "center",
+        flexWrap: "wrap", // si tu veux que ça passe à la ligne
+    },
+});

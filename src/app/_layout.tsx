@@ -78,6 +78,14 @@ export default function TabLayout() {
               getIcon(color, size, ICONS.PROFIILE),
           }}
         />
+      <Tabs.Screen
+          name="testPage"
+          options={{
+              title: "test page",
+              tabBarIcon: ({ color, size }) =>
+                  getIcon(color, size, ICONS.PROFIILE),
+          }}
+      />
       </Tabs>
     </PaperProvider>
   );
