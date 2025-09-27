@@ -1,6 +1,6 @@
 import { router, useLocalSearchParams } from "expo-router";
 import { useMemo } from "react";
-import { CarFilters } from "./useCars";
+import { CarFilters } from "../types/CarFilters";
 
 const filtersToParams = (filters: CarFilters): Record<string, string> => {
   const params: Record<string, string> = {};
