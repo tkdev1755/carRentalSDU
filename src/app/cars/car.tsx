@@ -1,17 +1,24 @@
-import { useLocalSearchParams } from "expo-router";
-import React from "react";
+import { Redirect, useLocalSearchParams, useNavigation } from "expo-router";
+import React, { useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 //page: /cars/car?id=1234
 
 const Car = () => {
-  // we use generics here to make sure that id is existing at compiletime
+  // derive id from link
   const { id } = useLocalSearchParams<{ id: string }>();
 
+  // setting the correct page title
+  const navigation = useNavigation();
+  useEffect(() => {
+    navigation.setOptions({ title: "Car: <car.name>" });
+  }, [navigation]);
+
   // we need some runtime safety
+  // do we??
   if (!id || typeof id !== "string") {
     console.error("Car Page: incorrect id");
-    // return REDIRECT TO ERROR PAGE / HOME PAGE
+    <Redirect href="/" />; //if we later build an error page put it in here
   }
 
   /**
@@ -19,13 +26,10 @@ const Car = () => {
    * -> still might be not existent, but thats now a problem of the component
    */
 
-  /*
-    <CarDetail data={car} />
-  */
-
   return (
     <View>
       <Text>Car with id: {id}</Text>
+      {/* <CarDetail data={car} */}
     </View>
   );
 };
