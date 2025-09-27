@@ -9,7 +9,8 @@ export default function Layout() {
       }}
     >
       <Stack.Screen name="index" options={{ title: "CarList" }} />
-      <Stack.Screen name="car_detail" options={{ title: "Nested Page!!" }} />
+      <Stack.Screen name="car" options={{ title: "" }} />
+      {/* screen options are set dynamicaly in car.tsx */}
     </Stack>
   );
 }

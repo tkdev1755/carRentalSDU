@@ -1,18 +1,14 @@
-import { Link } from "expo-router";
+import { useRouter } from "expo-router";
 import React from "react";
-import { Button, StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
+import { Button } from "react-native-paper";
 
 const index = () => {
+  const router = useRouter();
   return (
-    <View>
-      <Link href="/cars/car_detail" push asChild>
-        <Button title="go to car details" />
-      </Link>
-
-      <Link href="/cars/car?id=1234" push asChild>
-        <Button title="go to car with id 1234" />
-      </Link>
-    </View>
+    <Button onPress={() => router.navigate("/cars/car?id=ab12")}>
+      "Go to About"
+    </Button>
   );
 };
 
