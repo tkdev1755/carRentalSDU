@@ -1,16 +1,27 @@
-import { MOCK_CARS } from "./mocks/cars";
+import { eq } from "drizzle-orm";
+import DataBaseManager from "../database/database";
+import { CarTable } from "../database/schema";
 
 export const getAvailableCars = async () => {
-  //Just for simple testing
+  const db = DataBaseManager.getinstance().getdb();
 
-  //we might deprecate this later and move to a more filter-friendly function
+  const availableCars = await db
+  .select() 
+  .from(CarTable) 
+  .where(eq(CarTable.is_available, 1)) 
+  .execute();
 
-  // just simulating some time delay "waiting for the data"
-  await new Promise((res) => setTimeout(res, 500));
-  return MOCK_CARS;
+  return availableCars;
 };
 
-export const getCar = async (id: string) => {
-  await new Promise((res) => setTimeout(res, 500));
-  return MOCK_CARS[0];
+export const getCar = async (id: number) => {
+  const db = DataBaseManager.getinstance().getdb();
+  
+  const car = await db
+  .select() 
+  .from(CarTable) 
+  .where(eq(CarTable.id, id)) 
+  .execute();
+
+  return car;
 };

@@ -1,16 +1,29 @@
 import React from "react";
-import {StyleSheet, Text, View} from "react-native";
-import {FilterOptions} from "../components/FilterOptions";
+import { StyleSheet, View } from "react-native";
 import { Button } from 'react-native-paper';
+import { getAvailableCars } from "../api/services";
+import { seedDatabase } from "../database/seed";
+
+
+const handleAdamsPress = async () => {
+
+    await seedDatabase();
+
+    const cars = await getAvailableCars();
+    console.log("Available cars:", cars);
+
+};
+
 export const AdamTestingComponent = () => {
     return (
         <View style={styles.container}>
-            <Button icon="camera" mode="contained" onPress={() => console.log('Pressed')}>
+            <Button icon="camera" mode="contained" onPress={handleAdamsPress}>
                 ADAM testing LAND
             </Button>
         </View>
     );
 };
+
 
 const AmauryTestingComponent = () => {
     return (
