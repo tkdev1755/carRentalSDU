@@ -5,6 +5,8 @@ import { Button } from 'react-native-paper';
 import {FilterModal} from "@/src/components/FilterModal";
 import {useFilterParams} from "@/src/hooks/useFilterParams";
 import {CarFilters} from "@/src/types/CarFilters";
+import DataBaseManager from "@/src/database/database";
+import {seedDatabase} from "@/src/database/seed";
 export const AdamTestingComponent = () => {
     return (
         <View style={styles.container}>
@@ -64,7 +66,10 @@ export const TahaTestingComponent = () => {
 
     return (
         <View style={styles.container}>
-            <Button icon="camera" mode="contained" onPress={() => console.log('Pressed')}>
+            <Button icon="camera" mode="contained" onPress={async () => {
+                let db = DataBaseManager.getinstance();
+                await seedDatabase();
+            }}>
                 TAHA testing LAND
             </Button>
 
