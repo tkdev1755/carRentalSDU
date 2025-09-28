@@ -55,15 +55,13 @@ export const TahaTestingComponent = () => {
         { name: "Transmission", associatedFunction: () => {setActiveFilter("Transmission")}  },
         { name: "Type", associatedFunction: () => {setActiveFilter("Type")}  },
     ];
-    const { filters, setFilters,resetFilters} = useFilterParams();
+    const { filters, setFilters} = useFilterParams();
 
     const handleApply = (updated: CarFilters) => {
         setFilters({ ...filters, ...updated });
         setActiveFilter(null);
     };
-    const handleReset = () => {
-        resetFilters();
-    };
+
     return (
         <View style={styles.container}>
             <Button icon="camera" mode="contained" onPress={() => console.log('Pressed')}>
