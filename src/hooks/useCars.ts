@@ -1,11 +1,11 @@
 import useSwr from "swr";
-import { getAvailableCars } from "../api/services";
+import { getFilteredCars } from "../api/services";
 import { CarFilters } from "../types/CarFilters";
 
-const fetcher = () => getAvailableCars();
+const fetcher = ([, filters]: [string, CarFilters]) => getFilteredCars(filters);
 
 const useCars = (filters: CarFilters) => {
-  const { data, error, isLoading } = useSwr("cars", fetcher);
+  const { data, error, isLoading } = useSwr(["cars", filters], fetcher);
   return {
     cars: data,
     isLoading,
