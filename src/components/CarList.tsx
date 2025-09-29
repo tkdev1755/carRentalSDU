@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, ActivityIndicator, ScrollView } from "react-native";
 import { ShellCarCard } from "./ShellCarCard";
-import {getAvailableCars} from "@/src/api/services";
+import {getFilteredCars} from "@/src/api/services";
 import {Car} from "@/src/types/Car"
 import {CarFilters} from "@/src/types/CarFilters";
 
@@ -15,7 +15,7 @@ export default function CarList({ filters }: CarListProps) {
 
     useEffect(() => {
         const fetchCars = async () => {
-            const data = await getAvailableCars(filters);
+            const data = await getFilteredCars(filters);
             setCars(data);
             setLoading(false);
         };
