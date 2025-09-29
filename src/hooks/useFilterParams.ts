@@ -1,6 +1,7 @@
-import { router, useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useNavigation } from "expo-router";
+
 import { useMemo } from "react";
-import { CarFilters } from "./useCars";
+import { CarFilters } from "../types/CarFilters";
 
 const filtersToParams = (filters: CarFilters): Record<string, string> => {
   const params: Record<string, string> = {};
@@ -14,9 +15,6 @@ const filtersToParams = (filters: CarFilters): Record<string, string> => {
     }
   });
 
-  console.log("created the following params: ");
-  console.log(params);
-
   return params;
 };
 
@@ -29,9 +27,6 @@ const paramsToFilters = (params: Record<string, string>): CarFilters => {
       (filters as any)[key] = value; // not the prettiest solution but gets the job done i guess
     }
   });
-
-  console.log("created the following filters: ");
-  console.log(filters);
 
   return filters;
 };
@@ -56,9 +51,10 @@ const paramsToFilters = (params: Record<string, string>): CarFilters => {
 
 const useFilterParams = () => {
   const stringParams: Record<string, string> = useLocalSearchParams();
+  const navigation = useNavigation();
 
   const setFilters = (filters: CarFilters) => {
-    router.setParams(filtersToParams(filters));
+    navigation.replaceParams(filtersToParams(filters) as any);
   };
 
   const filters: CarFilters = useMemo(() => {

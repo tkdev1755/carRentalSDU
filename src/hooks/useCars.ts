@@ -1,17 +1,6 @@
 import useSwr from "swr";
 import { getAvailableCars } from "../api/services";
-
-type CarFilters = {
-  //all filter options go here
-  minPrice?: number;
-  maxPrice?: number;
-  type?: string;
-  seats?: number;
-  transmissionType?: string;
-  trunkSpace?: number;
-  engineType?: string;
-  isAvailable?: boolean;
-};
+import { CarFilters } from "../types/CarFilters";
 
 const fetcher = () => getAvailableCars();
 
@@ -24,4 +13,4 @@ const useCars = (filters: CarFilters) => {
   };
 };
 
-export { CarFilters, useCars };
+export { useCars };
