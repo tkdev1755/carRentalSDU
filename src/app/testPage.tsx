@@ -3,14 +3,14 @@ import { CarFilters } from "@/src/types/CarFilters";
 import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-paper";
-import { getAvailableCars } from "../api/services";
+import { getCar } from "../api/services";
 import { seedDatabase } from "../database/seed";
 
 const handleAdamsPress = async () => {
 
     await seedDatabase();
 
-    const cars = await getAvailableCars();
+    const cars = await getCar(1);
     console.log("Available cars:", cars);
 
 };
