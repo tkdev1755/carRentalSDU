@@ -1,9 +1,12 @@
-import { Button, View } from "react-native";
+import {Button, ScrollView, View} from "react-native";
 import { useFilterParams } from "../hooks/useFilterParams";
 import {FilterOptions} from "@/src/components/FilterOptions";
 import {FilterModal} from "@/src/components/FilterModal";
 import {CarFilters} from "@/src/types/CarFilters";
 import React, {useState} from "react";
+import {MOCK_CARS} from "@/src/api/mocks/cars";
+import {ShellCarCard} from "@/src/components/ShellCarCard";
+import CarList from "@/src/components/CarList";
 
 export default function Index() {
   // //const params: CarFilters = useLocalSearchParams();
@@ -34,19 +37,22 @@ export default function Index() {
     <View
       style={{
         flex: 1,
-        justifyContent: "center",
+        justifyContent: "flex-start",
         alignItems: "center",
       }}
     >
-        <FilterOptions options={filtersOptions}/>
-        <FilterModal
-            visible={activeFilter !== null}
-            filter={activeFilter}
-            filters={filters}
-            onApply={handleApply}
-            onDismiss={() => setActiveFilter(null)}
-        />
-      <Button title="learn more" onPress={() => setFilters(f)} />
+        <ScrollView>
+            <FilterOptions options={filtersOptions}/>
+            <FilterModal
+                visible={activeFilter !== null}
+                filter={activeFilter}
+                filters={filters}
+                onApply={handleApply}
+                onDismiss={() => setActiveFilter(null)}
+            />
+            <CarList filters={filters}></CarList>
+        </ScrollView>
+
     </View>
   );
 }
