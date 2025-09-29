@@ -7,7 +7,7 @@ const index = () => {
   const router = useRouter();
   return (
     <Button onPress={() => router.navigate("/cars/car?id=ab12")}>
-      "Go to About"
+      "Go to Car with id ab12"
     </Button>
   );
 };

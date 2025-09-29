@@ -1,10 +1,10 @@
 import CustomAppbar from "@/src/components/CustomAppbar";
 import CustomTabbar from "@/src/components/CustomTabbar";
+import { ICONS, IconName } from "@/src/constants/icons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { Tabs } from "expo-router";
 import React from "react";
 import { PaperProvider } from "react-native-paper";
-import { ICONS, IconName } from "../constants/icons";
 
 const getIcon = (color: string, size: number, name: IconName) => (
   <MaterialCommunityIcons name={name} color={color} size={size} />
@@ -13,7 +13,6 @@ const getIcon = (color: string, size: number, name: IconName) => (
 export default function TabLayout() {
   return (
     <PaperProvider>
-      {/* Theme Provider might go here */}
       <Tabs
         screenOptions={{
           header: (props) => <CustomAppbar {...props} />,
@@ -55,4 +54,7 @@ export default function TabLayout() {
       </Tabs>
     </PaperProvider>
   );
+}
+function useMaterial3Theme(): { theme: any } {
+  throw new Error("Function not implemented.");
 }
