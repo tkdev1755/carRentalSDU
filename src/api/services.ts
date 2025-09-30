@@ -8,9 +8,9 @@ export const getAvailableCars = async () => {
   const db = DataBaseManager.getinstance().getdb();
 
   const availableCars = await db
-  .select() 
-  .from(CarTable) 
-  .where(eq(CarTable.is_available, 1)) 
+  .select()
+  .from(CarTable)
+  .where(eq(CarTable.is_available, 1))
   .execute();
 
   return availableCars;
@@ -18,11 +18,11 @@ export const getAvailableCars = async () => {
 
 export const getCar = async (id: number) => {
   const db = DataBaseManager.getinstance().getdb();
-  
+
   const car = await db
-  .select() 
-  .from(CarTable) 
-  .where(eq(CarTable.id, id)) 
+  .select()
+  .from(CarTable)
+  .where(eq(CarTable.id, id))
   .execute();
 
   return car;
@@ -64,5 +64,22 @@ export const getFilteredCars = async (filters: CarFilters) => {
     .where(conditions.length > 0 ? and(...conditions) : undefined);
 
   const cars = await query.execute();
-  return cars;
+  return cars.map(mapDbCarToCar);
 };
+
+
+function mapDbCarToCar(dbCar: any): Car {
+    return {
+        id: dbCar.id,
+        name: dbCar.name,
+        price: dbCar.price,
+        seats: dbCar.seats,
+        transmission_type: dbCar.transmission, // mapping
+        type: dbCar.type,
+        trunk_space: dbCar.trunk_space,
+        engine_type: dbCar.engine,             // mapping
+        is_available: dbCar.is_available === 1, // conversion en boolean
+        agency_id: dbCar.agency_id,
+        image: dbCar.image,
+    };
+}
