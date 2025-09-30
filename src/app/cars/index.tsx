@@ -1,21 +1,32 @@
-import { Link } from "expo-router";
 import React from "react";
-import { Button, StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 
-const index = () => {
+import CarCard from "@/src/components/CarCard";
+import { Link } from "expo-router";
+
+export default function index() {
   return (
-    <View>
-      <Link href="/cars/car_detail" push asChild>
-        <Button title="go to car details" />
-      </Link>
-
-      <Link href="/cars/1234" push asChild>
-        <Button title="go to car with id 1234" />
-      </Link>
-    </View>
+    <ScrollView style={styles.scrollview} contentContainerStyle={{ alignItems: "stretch", gap: 16 }}>
+      {Array.from({ length: 3 }).map((_, i) => (
+        <Link href={`/cars/car?id=${i}`} key={i} style={styles.link}>
+          <CarCard/>
+        </Link>
+      ))}
+    </ScrollView>
   );
 };
 
-export default index;
-
-const styles = StyleSheet.create({});
+// TODO: there is missing some padding below the last element in the scrollview
+const styles = StyleSheet.create({
+  scrollview: {
+    display: "flex",
+    flex: 1,
+    padding: 16,
+    flexDirection: "column",
+    backgroundColor: "red",
+  },
+  link: {
+    width: "100%",
+    height: "auto",
+  },
+});

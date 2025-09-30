@@ -1,11 +1,8 @@
 import { useLocalSearchParams } from "expo-router";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, ScrollView, StyleSheet, Text } from "react-native";
 
-//page: /cars/car?id=1234
-
-const Car = () => {
-  // we use generics here to make sure that id is existing at compiletime
+export default function Car() {
   const { id } = useLocalSearchParams<{ id: string }>();
 
   // we need some runtime safety
@@ -14,22 +11,34 @@ const Car = () => {
     // return REDIRECT TO ERROR PAGE / HOME PAGE
   }
 
-  /**
-   * we know from this point on that we have at least an id that is a string
-   * -> still might be not existent, but thats now a problem of the component
-   */
-
-  /*
-    <CarDetail data={car} />
-  */
+  const image = { uri: "https://www.evspecifications.info/wp-content/uploads/2020/01/volvo-xc90-t8-evchargeplus-00-1-1024x680.png" };
 
   return (
-    <View>
-      <Text>Car with id: {id}</Text>
-    </View>
+    <ScrollView style={styles.scrollview} contentContainerStyle={{ alignItems: "stretch", justifyContent: "space-between", gap: 16 }}>
+      <Image source={image} style={styles.image}></Image>
+      <Pressable style={styles.next}>
+        <Text>Next</Text>
+      </Pressable>
+    </ScrollView>
   );
 };
 
-export default Car;
-
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  scrollview: {
+    display: "flex",
+    flex: 1,
+    padding: 16,
+    flexDirection: "column",
+    backgroundColor: "red",
+  },
+  next: {
+    backgroundColor: "blue",
+    padding: 12,
+    borderRadius: 8,
+  },
+  image: {
+    width: "100%",
+    aspectRatio: "16/9",
+    backgroundColor: "green",
+  }
+});
