@@ -3,15 +3,33 @@ import { CarFilters } from "@/src/types/CarFilters";
 import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-paper";
-import { getCar } from "../api/services";
+import { getFilteredCars } from "../api/services";
 import { seedDatabase } from "../database/seed";
 
 const handleAdamsPress = async () => {
 
-    await seedDatabase();
+  await seedDatabase();
 
-    const cars = await getCar(1);
-    console.log("Available cars:", cars);
+  const filteredCars = await getFilteredCars({
+  maxPrice: 50,
+  isAvailable: true,
+  });
+  //console.log("Filtered cars:", filteredCars);
+  
+  filteredCars.forEach(car => {
+  console.log(`Car: ${car.name}, Price: ${car.price}`);
+  });
+
+  const filteredCars2 = await getFilteredCars({
+  isAvailable: true
+  });
+  
+    //console.log("Available cars:", filteredCars2);
+    console.log("Available cars:");
+  
+    filteredCars2.forEach(car => {
+    console.log(`Car: ${car.name}, Price: ${car.price}`);
+    });
 
 };
 
