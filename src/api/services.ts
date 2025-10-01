@@ -8,6 +8,7 @@ export const getFilteredCars = async (filters: CarFilters) => {
     if (filters.transmission && filters.transmission !== car.transmission) continue;
     if (filters.engine && filters.engine !== car.engine) continue;
     if (filters.availability && filters.availability !== car.availability) continue;
+    if (filters.maxPrice && car.price > filters.maxPrice) continue;
 
     await new Promise((res) => setTimeout(res, 100));
     candidateCars.push(car);
