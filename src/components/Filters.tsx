@@ -6,14 +6,13 @@ type NumberProps = {
   label: string;
   value: number | null;
   onChange: (value: number | null) => void;
-  display?: (value: number) => string;
   placeholder?: string;
   min?: number;
   max?: number;
   step?: number;
 }
 
-function Number({ display, label, value, onChange, placeholder, min = 0, max = 100, step = 1 }: NumberProps) {
+function Number({ label, value, onChange, placeholder, min = 0, max = 100, step = 1 }: NumberProps) {
   const [visible, setVisible] = useState(false);
     
   const showModal = () => setVisible(true);
@@ -34,7 +33,6 @@ function Number({ display, label, value, onChange, placeholder, min = 0, max = 1
   }
 
   const mode = value !== null ? "contained" : "outlined";
-  const displayValue = value !== null ? (display ? display(value) : `€ ${value}`) : label;
 
   return (
     <View style={styles.option}>

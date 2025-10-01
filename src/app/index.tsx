@@ -45,7 +45,6 @@ const FilterComponents = React.memo(({ filters, onFiltersChange }: FilterCompone
       <Filters.Number
         label="Price"
         value={filters.maxPrice ?? null}
-        display={(value: number) => `EUR ${value} / day`}
         step={10}
         max={500}
         placeholder="EUR / day"
