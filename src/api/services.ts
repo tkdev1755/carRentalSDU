@@ -64,22 +64,21 @@ export const getFilteredCars = async (filters: CarFilters) => {
     .where(conditions.length > 0 ? and(...conditions) : undefined);
 
   const cars = await query.execute();
-  return cars.map(mapDbCarToCar);
+  return cars;
 };
 
 
-function mapDbCarToCar(dbCar: any): Car {
+export const getUserInfo = async (id: string) => {
+    // TODO - Write logic to get the connected user info
     return {
-        id: dbCar.id,
-        name: dbCar.name,
-        price: dbCar.price,
-        seats: dbCar.seats,
-        transmission_type: dbCar.transmission, // mapping
-        type: dbCar.type,
-        trunk_space: dbCar.trunk_space,
-        engine_type: dbCar.engine,             // mapping
-        is_available: dbCar.is_available === 1, // conversion en boolean
-        agency_id: dbCar.agency_id,
-        image: dbCar.image,
-    };
+        "name" : "John Doe",
+        "email" : "johnd@gmail.com",
+        "phoneNumber" : "+330621546712"
+    }
+}
+
+export const updateUserInfo = async (info:any) => {
+    console.log(`Updating following user info : ${info.key} - ${info.value}`);
+
+    // TODO - Write logic to update the user info on the database
 }

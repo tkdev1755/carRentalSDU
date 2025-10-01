@@ -59,7 +59,6 @@ export async function seedDatabase() {
     );
     console.log("Filled the database");
     const carCount=await db.select().from(CarTable);
-    console.log(`Car count is ${carCount}`);
     if(carCount.length===0) {
         for(const car of MOCK_CARS) {
             await db.insert(CarTable).values({

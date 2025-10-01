@@ -32,6 +32,7 @@ export const FilterOption: React.FC<FilterOptionProps> = ({ name, associatedFunc
 // Options : List of FilterOptionProps to automatically create the associated FilterOption component that will be rendered in the FilterOptions Component
 type FilterOptionsProps = {
     options: { name: string; associatedFunction: () => void }[];
+    resetFilters: () => void;
 };
 
 /**
@@ -40,7 +41,7 @@ type FilterOptionsProps = {
  * @example
  * <FilterOptions options={filtersOptions}/>
  **/
-export const FilterOptions: React.FC<FilterOptionsProps> = ({ options}) => {
+export const FilterOptions: React.FC<FilterOptionsProps> = ({ options,resetFilters}) => {
     return (
         <View style={styles.row}>
             {options.map((option, index) => (
@@ -50,6 +51,9 @@ export const FilterOptions: React.FC<FilterOptionsProps> = ({ options}) => {
                     associatedFunction={option.associatedFunction}
                 />
             ))}
+            <Chip onPress={resetFilters} style={styles.chip} mode={"outlined"}>
+                Reset filters
+            </Chip>
         </View>
     );
 };
@@ -58,6 +62,10 @@ export const FilterOptions: React.FC<FilterOptionsProps> = ({ options}) => {
 
 const styles = StyleSheet.create({
     chip: {
+        marginRight: 8,
+        marginBottom: 8,
+    },
+    outlinedChip : {
         marginRight: 8,
         marginBottom: 8,
     },

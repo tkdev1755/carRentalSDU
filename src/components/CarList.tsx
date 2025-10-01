@@ -10,7 +10,7 @@ type CarListProps = {
 };
 
 export default function CarList({ filters }: CarListProps) {
-    const [cars, setCars] = useState<Car[]>([]);
+    const [cars, setCars] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
