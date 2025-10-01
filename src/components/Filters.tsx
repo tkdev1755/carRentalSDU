@@ -14,75 +14,75 @@ type NumberProps = {
 }
 
 function Number({ display, label, value, onChange, placeholder, min = 0, max = 100, step = 1 }: NumberProps) {
-    const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(false);
     
-    const showModal = () => setVisible(true);
-    const hideModal = () => setVisible(false);
+  const showModal = () => setVisible(true);
+  const hideModal = () => setVisible(false);
 
-    const reset = () => {
-      onChange(null);
-      hideModal();
+  const reset = () => {
+    onChange(null);
+    hideModal();
+  }
+
+  const addAmount = (amount: number) => {
+    if (value === null) {
+      onChange(min);
+    } else {
+      const newValue = Math.min(max, Math.max(min, value + amount));
+      onChange(newValue);
     }
+  }
 
-    const addAmount = (amount: number) => {
-      if (value === null) {
-        onChange(min);
-      } else {
-        const newValue = Math.min(max, Math.max(min, value + amount));
-        onChange(newValue);
-      }
-    }
+  const mode = value !== null ? "contained" : "outlined";
+  const displayValue = value !== null ? (display ? display(value) : `€ ${value}`) : label;
 
-    const mode = value !== null ? "contained" : "outlined";
-    const displayValue = value !== null ? (display ? display(value) : `€ ${value}`) : label;
-
-    return (
-      <View style={styles.option}>
-        <Button mode={mode} onPress={showModal} onLongPress={reset} icon="chevron-down">{label}</Button>
-        <Portal>
-          <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={[styles.modal, {gap: 20}]}>
-            <Text style={styles.modal_title}>Select {label}</Text>
-            <View style={{display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 10}}>
-              <Button mode="outlined" onPress={() => addAmount(-step)}>-{step}</Button>
-              <TextInput
-                mode="outlined"
-                label={label}
-                value={value !== null ? String(value) : ''}
-                onChangeText={(text) => {
-                  const num = parseInt(text, 10);
-                  if (!isNaN(num) && num >= min && num <= max) {
-                    onChange(num);
-                  } else if (text === '') {
-                    onChange(null);
-                  }
-                }}
-                keyboardType="numeric"
-                style={{ flex: 1, textAlign: 'center' }}
-                placeholder={placeholder}
-              />
-              <Button mode="outlined" onPress={() => addAmount(step)}>+{step}</Button>
-            </View>
-            <Button mode="contained" onPress={hideModal}>Done</Button>
-          </Modal>
-        </Portal>
-      </View>
-    )
+  return (
+    <View style={styles.option}>
+      <Button mode={mode} onPress={showModal} onLongPress={reset} icon="chevron-down">{label}</Button>
+      <Portal>
+        <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={[styles.modal, {gap: 20}]}>
+          <Text style={styles.modal_title}>Select {label}</Text>
+          <View style={{display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 10}}>
+            <Button mode="outlined" onPress={() => addAmount(-step)}>-{step}</Button>
+            <TextInput
+              mode="outlined"
+              label={label}
+              value={value !== null ? String(value) : ''}
+              onChangeText={(text) => {
+                const num = parseInt(text, 10);
+                if (!isNaN(num) && num >= min && num <= max) {
+                  onChange(num);
+                } else if (text === '') {
+                  onChange(null);
+                }
+              }}
+              keyboardType="numeric"
+              style={{ flex: 1, textAlign: 'center' }}
+              placeholder={placeholder}
+            />
+            <Button mode="outlined" onPress={() => addAmount(step)}>+{step}</Button>
+          </View>
+          <Button mode="contained" onPress={hideModal}>Done</Button>
+        </Modal>
+      </Portal>
+    </View>
+  );
 }
 
 type ToggleProps = {
-    label: string;
-    toggled: boolean;
-    onToggle: (value: boolean) => void;
+  label: string;
+  toggled: boolean;
+  onToggle: (value: boolean) => void;
 }
 
 function Toggle({ label, toggled, onToggle}: ToggleProps) {
-    const mode = toggled ? "contained" : "outlined";
+  const mode = toggled ? "contained" : "outlined";
 
-    return (
-        <Button mode={mode} onPress={() => onToggle(!toggled)}>
-            {label}
-        </Button>
-    )
+  return (
+    <Button mode={mode} onPress={() => onToggle(!toggled)}>
+      {label}
+    </Button>
+  );
 }
 
 type SingleSelectProps<T> = {
