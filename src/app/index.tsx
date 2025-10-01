@@ -9,21 +9,21 @@ import { CarFilters } from "@/src/types/CarFilters";
 
 type FilterComponentsProps = {
   filters: CarFilters;
-  onFiltersChange: (filters: CarFilters) => void;
+  setFilters: (filters: CarFilters) => void;
 };
 
-const FilterComponents = React.memo(({ filters, onFiltersChange }: FilterComponentsProps) => {
+const FilterComponents = React.memo(({ filters, setFilters }: FilterComponentsProps) => {
   return (
     <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} contentContainerStyle={{gap: 4}}
       // TODO(mathias): height fix hack
       style={{maxHeight: 42}}>
-      <Filters.Reset onPress={() => onFiltersChange({})} />
+      <Filters.Reset onPress={() => setFilters({})} />
       <Filters.SingleSelect
         selected={filters.transmission ?? null}
         label="Transmission"
         options={["manual", "automatic"]}
         onSelect={(selected: TransmissionType | null) =>
-          onFiltersChange({...filters, transmission: selected ?? undefined})
+          setFilters({...filters, transmission: selected ?? undefined})
         }
       />
       <Filters.SingleSelect
@@ -31,7 +31,7 @@ const FilterComponents = React.memo(({ filters, onFiltersChange }: FilterCompone
         label="Engine"
         options={["hybrid", "electric", "petrol"]}
         onSelect={(selected: EngineType | null) => 
-          onFiltersChange({...filters, engine: selected ?? undefined})
+          setFilters({...filters, engine: selected ?? undefined})
         }
       />
       <Filters.Toggle
@@ -39,7 +39,7 @@ const FilterComponents = React.memo(({ filters, onFiltersChange }: FilterCompone
         label="Available"
         onToggle={(value: boolean) => {
           const availability = value ? "available" : undefined;
-          onFiltersChange({...filters, availability: availability});
+          setFilters({...filters, availability: availability});
         }}
       />
       <Filters.Number
@@ -49,7 +49,7 @@ const FilterComponents = React.memo(({ filters, onFiltersChange }: FilterCompone
         max={500}
         placeholder="EUR / day"
         onChange={(value: number | null) => 
-          onFiltersChange({ ...filters, maxPrice: value ?? undefined})
+          setFilters({ ...filters, maxPrice: value ?? undefined})
         }
       />
     </ScrollView>
@@ -61,7 +61,7 @@ export default function Index() {
 
   return (
     <View style={styles.container}>
-      <FilterComponents filters={filters} onFiltersChange={setFilters} />
+      <FilterComponents filters={filters} setFilters={setFilters} />
       <CarList filters={filters}/>
     </View>
   );
