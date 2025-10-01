@@ -37,7 +37,7 @@ function Number({ display, label, value, onChange, placeholder, min = 0, max = 1
     const displayValue = value !== null ? (display ? display(value) : `€ ${value}`) : label;
 
     return (
-      <View>
+      <View style={styles.option}>
         <Button mode={mode} onPress={showModal} onLongPress={reset} icon="chevron-down">{label}</Button>
         <Portal>
           <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={[styles.modal, {gap: 20}]}>
@@ -116,13 +116,13 @@ function SingleSelect<T>({ label, options, selected, onSelect, renderOption }: S
   const mode = selected ? "contained" : "outlined";
 
   return (
-    <View className="mb-4">
+    <View style={styles.option}>
       <Button mode={mode} onPress={showModal} onLongPress={reset} icon="chevron-down">
         {label}
       </Button>
       <Portal>
-        <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={{ backgroundColor: 'white', padding: 20, margin: 20, borderRadius: 8 }}>
-          <Text className="text-lg font-bold mb-4">Select {label}</Text>
+        <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={styles.modal}>
+          <Text style={styles.modal_title}>Select {label}</Text>
           <RadioButton.Group onValueChange={handleSelect} value={selected ? getOptionLabel(selected) : ''}>
             {options.map((option, index) => (
               <RadioButton.Item key={index} label={getOptionLabel(option)} value={getOptionLabel(option)} />
@@ -155,7 +155,7 @@ type FiltersComposition = {
 };
 
 export const Filters: React.FC<{ children: React.ReactNode }> & FiltersComposition = ({ children }) => {
-  return <View className="p-4">{children}</View>;
+  return <View>{children}</View>;
 };
 
 Filters.SingleSelect = SingleSelect;
@@ -180,5 +180,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 20,
-  }
+  },
+  option: {
+    // marginBottom: 10,
+  },
 });
