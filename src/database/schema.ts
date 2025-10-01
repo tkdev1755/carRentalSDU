@@ -35,7 +35,7 @@ export type AgencyType = typeof AgencyTable.$inferSelect;
 export const BookingTable = sqliteTable("Booking", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   start_date: text("start_date").notNull(),
-  end_time: real("end_time").notNull(),
+  end_time: text("end_time").notNull(),
   car_id: integer("car_id").references(() => CarTable.id),
   user_id: text("user_id").references(() => UserTable.id),
   agency_id: integer("agency_id").references(() => AgencyTable.id),

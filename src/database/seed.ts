@@ -48,7 +48,7 @@ export async function seedDatabase() {
         "CREATE TABLE IF NOT EXISTS Booking (\n" +
         "    id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
         "    start_date TEXT NOT NULL,\n" +
-        "    end_time REAL NOT NULL,\n" +
+        "    end_time TEXT NOT NULL,\n" +
         "    car_id INTEGER,\n" +
         "    user_id TEXT,\n" +
         "    agency_id INTEGER,\n" +

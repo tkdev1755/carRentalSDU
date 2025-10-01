@@ -1,6 +1,6 @@
 import { and, eq, gte, lte } from "drizzle-orm";
 import DataBaseManager from "../database/database";
-import { CarTable } from "../database/schema";
+import { BookingTable, CarTable } from "../database/schema";
 import { CarFilters } from "../types/CarFilters";
 
 
@@ -81,4 +81,13 @@ export const updateUserInfo = async (info:any) => {
     console.log(`Updating following user info : ${info.key} - ${info.value}`);
 
     // TODO - Write logic to update the user info on the database
+}
+
+export const createBooking = async (booking: { start_date:string;end_time:string;car_id:number;user_id:string;agency_id:number;
+}) => {
+  const db = DataBaseManager.getinstance().getdb();
+  const result = await db.insert(BookingTable).values(booking).execute();
+  await db.update(CarTable).set({is_available:0}).where(eq(CarTable.id, booking.car_id)).execute(); //maybee see is there is a edge functiun in supabase for more security
+
+  return result;
 }
