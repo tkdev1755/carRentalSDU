@@ -110,7 +110,6 @@ function SingleSelect<T>({ label, options, selected, onSelect, renderOption }: S
     hideModal();
   };
 
-  const selectedLabel = selected ? getOptionLabel(selected) : `${label}`;
   const mode = selected ? "contained" : "outlined";
 
   return (
