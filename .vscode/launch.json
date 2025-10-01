@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node-terminal",
+      "name": "Run Android",
+      "request": "launch",
+      "command": "npm run android",
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "npm install"
+    }
+  ]
+}
