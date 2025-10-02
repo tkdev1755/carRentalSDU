@@ -7,5 +7,4 @@ export type CarFilters = {
     trunkSpace?: number,
     engineType?: string,
     isAvailable?: boolean,
-    filters?: any
 };
