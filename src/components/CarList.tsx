@@ -1,14 +1,9 @@
 import { CarFilters } from "@/src/types/CarFilters";
 import React from "react";
-import {
-  ActivityIndicator,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { ActivityIndicator, ScrollView, StyleSheet, View } from "react-native";
+import { Text } from "react-native-paper";
 import { useCars } from "../hooks/useCars";
-import { ShellCarCard } from "./ShellCarCard";
+import { CarCard } from "./CarCard";
 
 export default function CarList({ filters }: { filters: CarFilters }) {
   const { cars, isLoading, error } = useCars(filters);
@@ -38,7 +33,7 @@ export default function CarList({ filters }: { filters: CarFilters }) {
   return (
     <ScrollView>
       {cars.map((car, i) => (
-        <ShellCarCard key={i} car={car} />
+        <CarCard key={i} car={car} />
       ))}
     </ScrollView>
   );
