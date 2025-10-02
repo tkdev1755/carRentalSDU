@@ -4,6 +4,7 @@ import { BookingTable, CarTable, CarType, UserTable } from "../database/schema";
 import { CarFilters } from "../types/CarFilters";
 
 
+
 // export const getAvailableCars = async () => {
 //   const db = DataBaseManager.getinstance().getdb();
 
@@ -82,13 +83,13 @@ export const getUserInfo = async (id: string) => {
         "email" : "johnd@gmail.com",
         "phoneNumber" : "+330621546712"
     };
-}
+};
 
 export const updateUserInfo = async (info:any) => {
     console.log(`Updating following user info : ${info.key} - ${info.value}`);
 
     // TODO - Write logic to update the user info on the database
-}
+};
 
 export const createBooking = async (booking: { start_date:string;end_time:string;car_id:number;user_id:string;agency_id:number;
 }) => {
@@ -97,4 +98,12 @@ export const createBooking = async (booking: { start_date:string;end_time:string
   await db.update(CarTable).set({is_available:0}).where(eq(CarTable.id, booking.car_id)).execute(); //maybee see is there is a edge functiun in supabase for more security
 
   return result;
-}
+};
+
+export const getCurrentBookings = async (id:string) => {
+    const db = DataBaseManager.getinstance().getdb();
+    const today = new Date().toISOString().split("T")[0];
+
+    const bookings = await db.select().from(BookingTable).where(and(eq(BookingTable.user_id, id),lte(BookingTable.start_date, today), gte(BookingTable.end_time, today))).execute();
+    return bookings;
+};
