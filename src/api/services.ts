@@ -1,20 +1,20 @@
 import { and, eq, gte, lte } from "drizzle-orm";
 import DataBaseManager from "../database/database";
-import { BookingTable, CarTable } from "../database/schema";
+import { BookingTable, CarTable, UserTable } from "../database/schema";
 import { CarFilters } from "../types/CarFilters";
 
 
-export const getAvailableCars = async () => {
-  const db = DataBaseManager.getinstance().getdb();
+// export const getAvailableCars = async () => {
+//   const db = DataBaseManager.getinstance().getdb();
 
-  const availableCars = await db
-  .select()
-  .from(CarTable)
-  .where(eq(CarTable.is_available, 1))
-  .execute();
+//   const availableCars = await db
+//   .select()
+//   .from(CarTable)
+//   .where(eq(CarTable.is_available, 1))
+//   .execute();
 
-  return availableCars;
-};
+//   return availableCars;
+// }
 
 export const getCar = async (id: number) => {
   const db = DataBaseManager.getinstance().getdb();
@@ -69,12 +69,15 @@ export const getFilteredCars = async (filters: CarFilters) => {
 
 
 export const getUserInfo = async (id: string) => {
-    // TODO - Write logic to get the connected user info
-    return {
-        "name" : "John Doe",
-        "email" : "johnd@gmail.com",
-        "phoneNumber" : "+330621546712"
-    }
+    const db = DataBaseManager.getinstance().getdb();
+
+    const user = await db
+    .select()
+    .from(UserTable)
+    .where(eq(UserTable.id, id))
+    .execute();
+
+    return user;
 }
 
 export const updateUserInfo = async (info:any) => {
