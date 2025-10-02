@@ -1,13 +1,11 @@
-import {Button, ScrollView, View} from "react-native";
-import { useFilterParams } from "../hooks/useFilterParams";
-import {FilterOptions} from "@/src/components/FilterOptions";
-import {FilterModal} from "@/src/components/FilterModal";
-import {CarFilters} from "@/src/types/CarFilters";
-import React, {useEffect, useState} from "react";
-import {MOCK_CARS} from "@/src/api/mocks/cars";
-import {ShellCarCard} from "@/src/components/ShellCarCard";
 import CarList from "@/src/components/CarList";
-import {useAppInit} from "@/src/hooks/useAppInit";
+import { FilterModal } from "@/src/components/FilterModal";
+import { FilterOptions } from "@/src/components/FilterOptions";
+import { useAppInit } from "@/src/hooks/useAppInit";
+import { CarFilters } from "@/src/types/CarFilters";
+import React, { useState } from "react";
+import { ScrollView, View } from "react-native";
+import { useFilterParams } from "../hooks/useFilterParams";
 
 export default function Index() {
   // //const params: CarFilters = useLocalSearchParams();
