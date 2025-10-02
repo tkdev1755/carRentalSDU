@@ -34,7 +34,6 @@ export function useUser(userId: string) {
                 setLoading(false);
             }
         };
-
         fetchUserInfo();
     }, [userId]);
 
