@@ -2,6 +2,7 @@ import { and, eq, gte, lte } from "drizzle-orm";
 import DataBaseManager from "../database/database";
 import { BookingTable, CarTable, CarType, UserTable } from "../database/schema";
 import { CarFilters } from "../types/CarFilters";
+import {removeUsesLibraryItemFromMainApplication} from "@expo/config-plugins/build/android/Manifest";
 
 
 
@@ -107,3 +108,11 @@ export const getCurrentBookings = async (id:string) => {
     const bookings = await db.select().from(BookingTable).where(and(eq(BookingTable.user_id, id),lte(BookingTable.start_date, today), gte(BookingTable.end_time, today))).execute();
     return bookings;
 };
+
+export const getPastBookings = async(id:string) => {
+    const db = DataBaseManager.getinstance().getdb();
+    const today = new Date().toISOString().split("T")[0];
+    const bookings = await db.select().from(BookingTable).where(and(eq(BookingTable.user_id, id), lte(BookingTable.end_time, today))).execute();
+
+    return bookings;
+}
