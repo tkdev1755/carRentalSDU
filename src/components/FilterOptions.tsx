@@ -39,7 +39,7 @@ type FilterOptionsProps = {
  * Component for displaying a List of FilterOption chips
  * Needs a FilterOptionsProps which in itself is a list of FilterOptionProps
  * @example
- * <FilterOptions options={filtersOptions}/>
+ * <FilterOptions options={filtersOptions}, resetFilter={filter}/>
  **/
 export const FilterOptions: React.FC<FilterOptionsProps> = ({ options,resetFilters}) => {
     return (
