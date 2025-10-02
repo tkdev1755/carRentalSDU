@@ -1,41 +1,29 @@
+import { router } from "expo-router";
+import React from "react";
+import { Card, Text } from "react-native-paper";
 
-import { Image, StyleSheet, Text, View } from "react-native";
+type CarCardProps = {
+    car: any
 
-export default function CarCard() {
-    // TODO: retrieve from props
-    const image = { uri: "https://www.evspecifications.info/wp-content/uploads/2020/01/volvo-xc90-t8-evchargeplus-00-1-1024x680.png" };
-    const title = "Tesla Model S (2020)";
+};
+
+export const CarCard: React.FC<CarCardProps> = ({ car }) => {
+    const handlePress = () => {
+        router.push(`/cars/car?id=${car.id}`);
+    }
 
     return (
-        <View style={styles.container}>
-            <Image style={styles.image} source={image} />
-            <View style={styles.details}>
-                <Text style={styles.title}>{title}</Text>
-            </View>
-        </View>
+        <Card style={{ margin: 10 }} onPress={handlePress}>
+            <Card.Cover source={{ uri: car.image }} />
+            <Card.Content>
+                <Text variant={"titleMedium"}>{car.name}</Text>
+                <Text variant={"bodyMedium"}>{car.type} • {car.seats} seats</Text>
+                <Text variant={"bodyMedium"}>{car.transmission} • {car.engine}</Text>
+                <Text variant={"bodyMedium"}>{car.price.toFixed(2)} € / day</Text>
+                {!car.is_available && (
+                    <Text variant={"bodyMedium"} style={{ color: "red" }}>Not available</Text>
+                )}
+            </Card.Content>
+        </Card>
     );
-}
-const styles = StyleSheet.create({
-    container: {
-        width: "100%",
-        aspectRatio: "16/9",
-        height: "100%",
-
-        borderWidth: 1,
-        borderColor: "#ccc",
-        borderRadius: 8,
-        backgroundColor: "green"
-    },
-    image: {
-        aspectRatio: "16/9",
-        backgroundColor: "blue"
-    },
-    details: {
-        padding: 8,
-        aspectRatio: "5/1",
-    },
-    title: {
-        fontSize: 16,
-        fontWeight: "bold",
-    }
-});
+};
