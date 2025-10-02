@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { View, ActivityIndicator, ScrollView } from "react-native";
 import { ShellCarCard } from "./ShellCarCard";
 import {getFilteredCars} from "@/src/api/services";
-import {Car} from "@/src/types/Car"
 import {CarFilters} from "@/src/types/CarFilters";
 
 type CarListProps = {
