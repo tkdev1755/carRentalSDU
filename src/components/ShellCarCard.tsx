@@ -1,6 +1,6 @@
+import { router } from "expo-router";
 import React from "react";
-import { Image } from "react-native";
-import { Card,Text } from "react-native-paper";
+import { Card, Text } from "react-native-paper";
 
 type CarCardProps = {
     car: any
@@ -8,8 +8,12 @@ type CarCardProps = {
 };
 
 export const ShellCarCard: React.FC<CarCardProps> = ({ car }) => {
+    const handlePress = () => {
+        router.push(`/cars/car?id=${car.id}`);
+    }
+
     return (
-        <Card style={{ margin: 10 }}>
+        <Card style={{ margin: 10 }} onPress={handlePress}>
             <Card.Cover source={{ uri: car.image }} />
             <Card.Content>
                 <Text variant={"titleMedium"}>{car.name}</Text>

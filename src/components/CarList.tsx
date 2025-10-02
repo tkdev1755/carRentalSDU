@@ -37,10 +37,11 @@ export default function CarList({ filters }: { filters: CarFilters }) {
 
   return (
     <ScrollView>
-      {cars.map((car) => (
-        <ShellCarCard key={car.id} car={car} />
+      {cars.map((car, i) => (
+        <ShellCarCard key={i} car={car} />
       ))}
     </ScrollView>
   );
 }
+
 const styles = StyleSheet.create({});

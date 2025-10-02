@@ -8,8 +8,8 @@ import { Text } from "react-native-paper";
 
 
 export default function Car() {
-  const { id } = useLocalSearchParams<{ id: number }>();
-  const { car, isLoading, error } = useCar(id);
+  const { id } = useLocalSearchParams<{ id: string }>();
+  const { car, isLoading, error } = useCar(Number(id));
 
   if (isLoading)  return (<Text>Loading...</Text>)
   if (error) return (<Text>Error: {error.message}</Text>)
