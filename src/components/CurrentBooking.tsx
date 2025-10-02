@@ -18,7 +18,7 @@ export default function CurrentBooking({bookings,loading}:Props){
     if(!loading && bookings.length===0) {
         return(
             <View style={styles.center}>
-                <Text variant={"bodyMedium"}>No current bookings</Text>
+                <Text style={styles.noBookingsText}>No current bookings</Text>
             </View>
         );
     }
@@ -40,18 +40,25 @@ export default function CurrentBooking({bookings,loading}:Props){
 const styles=StyleSheet.create({
     container: {
         flex:1,
-        marginTop:16,
+        marginTop:50,
     },
     title:{
+        fontSize:24,
+        fontWeight:'bold',
         textAlign:'center',
-        marginBottom:12,
+        marginBottom:20,
     },
     list:{
         paddingHorizontal:16,
     },
     center:{
         flex:1,
-        justifyContent:'center',
+        justifyContent:'flex-start',
         alignItems:"center",
+        paddingTop:100,
+    },
+    noBookingsText: {
+        fontSize:18,
+        textAlign: "center",
     },
 });
