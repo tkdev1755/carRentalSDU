@@ -1,6 +1,6 @@
 import { and, eq, gte, lte } from "drizzle-orm";
 import DataBaseManager from "../database/database";
-import { BookingTable, CarTable, UserTable } from "../database/schema";
+import { BookingTable, CarTable, CarType, UserTable } from "../database/schema";
 import { CarFilters } from "../types/CarFilters";
 
 
@@ -16,7 +16,7 @@ import { CarFilters } from "../types/CarFilters";
 //   return availableCars;
 // }
 
-export const getCar = async (id: number) => {
+export const getCar = async (id: number): Promise<CarType> => {
   const db = DataBaseManager.getinstance().getdb();
 
   const car = await db
@@ -25,7 +25,7 @@ export const getCar = async (id: number) => {
   .where(eq(CarTable.id, id))
   .execute();
 
-  return car;
+  return car[0];
 };
 
 export const getFilteredCars = async (filters: CarFilters) => {
