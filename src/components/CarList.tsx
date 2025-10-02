@@ -10,7 +10,7 @@ import {
 import { useCars } from "../hooks/useCars";
 import { ShellCarCard } from "./ShellCarCard";
 
-export default function CarList(filters: CarFilters) {
+export default function CarList({ filters }: { filters: CarFilters }) {
   const { cars, isLoading, error } = useCars(filters);
 
   if (isLoading) {
