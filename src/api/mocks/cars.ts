@@ -50,7 +50,7 @@ export const MOCK_CARS = [
         "engine_type" : "Electric",
         "is_available" : true,
         "agency_id" : 0,
-        "image" : "https://www.evspecifications.info/wp-content/uploads/2020/01/volvo-xc90-t8-evchargeplus-00-1-1024x680.png",
+        "image" : "https://billeder.bilbasen.dk/bilinfo/155f7588-554b-445c-a478-7846bf3eecbb.png?class=S1600X1600",
 
     },
     {

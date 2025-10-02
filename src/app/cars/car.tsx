@@ -6,8 +6,9 @@ import { useLocalSearchParams } from "expo-router";
 import { Image, Pressable, StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 
+
 export default function Car() {
-  const { id } = useLocalSearchParams<{ id: string }>();
+  const { id } = useLocalSearchParams<{ id: number }>();
   const { car, isLoading, error } = useCar(id);
 
   if (isLoading)  return (<Text>Loading...</Text>)
