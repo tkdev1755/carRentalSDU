@@ -9,6 +9,11 @@ const ICONS = {
   HOME: "home" as IconName,
   PROFIILE: "carrot" as IconName,
   CARS: "car" as IconName,
+  SEAT: "account" as IconName,
+  BAGS: "bag-personal" as IconName,
+  TRANSMISSION: "car-shift-pattern" as IconName,
+  PRICE_TAG: "price-tag" as IconName,
+  DOOR: "car-door" as IconName,
 } as const;
 
 export { IconName, ICONS };
