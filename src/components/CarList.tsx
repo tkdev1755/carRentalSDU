@@ -1,39 +1,46 @@
-import React, { useEffect, useState } from "react";
-import { View, ActivityIndicator, ScrollView } from "react-native";
+import { CarFilters } from "@/src/types/CarFilters";
+import React from "react";
+import {
+  ActivityIndicator,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import { useCars } from "../hooks/useCars";
 import { ShellCarCard } from "./ShellCarCard";
-import {getFilteredCars} from "@/src/api/services";
-import {CarFilters} from "@/src/types/CarFilters";
 
-type CarListProps = {
-    filters: CarFilters;
-};
+export default function CarList(filters: CarFilters) {
+  const { cars, isLoading, error } = useCars(filters);
 
-export default function CarList({ filters }: CarListProps) {
-    const [cars, setCars] = useState<any[]>([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const fetchCars = async () => {
-            const data = await getFilteredCars(filters);
-            setCars(data);
-            setLoading(false);
-        };
-        fetchCars();
-    }, [filters]);
-
-    if (loading) {
-        return (
-            <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-                <ActivityIndicator size="large" />
-            </View>
-        );
-    }
-
+  if (isLoading) {
     return (
-        <ScrollView>
-            {cars.map((car) => (
-                <ShellCarCard key={car.id} car={car} />
-            ))}
-        </ScrollView>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" />
+      </View>
     );
+  }
+
+  if (error) {
+    return (
+      <View>
+        <Text>An error occured</Text>
+      </View>
+    );
+    // TODO: throw Snackbar
+  }
+
+  if (cars == undefined || cars?.length == 0) {
+    // no results
+    return <></>;
+  }
+
+  return (
+    <ScrollView>
+      {cars.map((car) => (
+        <ShellCarCard key={car.id} car={car} />
+      ))}
+    </ScrollView>
+  );
 }
+const styles = StyleSheet.create({});
