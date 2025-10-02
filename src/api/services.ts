@@ -77,7 +77,11 @@ export const getUserInfo = async (id: string) => {
     .where(eq(UserTable.id, id))
     .execute();
 
-    return user;
+    return {
+        "name" : "John Doe",
+        "email" : "johnd@gmail.com",
+        "phoneNumber" : "+330621546712"
+    };
 }
 
 export const updateUserInfo = async (info:any) => {
