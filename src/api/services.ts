@@ -81,8 +81,12 @@ export const getUserInfo = async (id: string) => {
     .where(eq(UserTable.id, id))
     .execute();
 
-    return user;
-}
+    return {
+        "name" : "John Doe",
+        "email" : "johnd@gmail.com",
+        "phoneNumber" : "+330621546712"
+    };
+};
 
 export const getInsurancePlans = () => INSURANCE_PLANS
 
@@ -90,7 +94,7 @@ export const updateUserInfo = async (info:any) => {
     console.log(`Updating following user info : ${info.key} - ${info.value}`);
 
     // TODO - Write logic to update the user info on the database
-}
+};
 
 export const createBooking = async (booking: { start_date:string;end_time:string;car_id:number;user_id:string;agency_id:number;
 }) => {
@@ -99,18 +103,44 @@ export const createBooking = async (booking: { start_date:string;end_time:string
   await db.update(CarTable).set({is_available:0}).where(eq(CarTable.id, booking.car_id)).execute(); //maybee see is there is a edge functiun in supabase for more security
 
   return result;
-}
+};
 
-export const getAgencies = async () => {
+export const getCurrentBookings = async (id:string) => {
     const db = DataBaseManager.getinstance().getdb();
-    return await db.select().from(AgencyTable);
-}
+    const today = new Date().toISOString().split("T")[0];
 
-export const getAgency = async (id: number) :Promise<AgencyType> => {
+    const bookings = await db.select().from(BookingTable).where(and(eq(BookingTable.user_id, id),lte(BookingTable.start_date, today), gte(BookingTable.end_time, today))).execute();
+    return [
+        {
+            "id":1,
+            "start_date":"2025-09-25",
+            "end_time":"2025-11-25",
+            "car_id":1,
+            "user_id":"1",
+            "agency_id":1,
+        },
+        {
+            "id":2,
+            "start_date":"2025-09-27",
+            "end_time":"2025-11-27",
+            "car_id":4,
+            "user_id":"1",
+            "agency_id":1,
+        }
+        ];
+};
+
+export const getPastBookings = async(id:string) => {
     const db = DataBaseManager.getinstance().getdb();
-    const result = await db.select().from(AgencyTable).where(eq(AgencyTable.id, id));
-    if (result.length === 0) {
-        throw new Error(`Agency with id=${id} not found`);
-    }
-    return  result[0];
-}
+    const today = new Date().toISOString().split("T")[0];
+    const bookings = await db.select().from(BookingTable).where(and(eq(BookingTable.user_id, id), lte(BookingTable.end_time, today))).execute();
+
+    return bookings;
+};
+
+export const getFutureBookings = async(id:string) => {
+    const db = DataBaseManager.getinstance().getdb();
+    const today = new Date().toISOString().split("T")[0];
+    const bookings = await db.select().from(BookingTable).where(and(eq(BookingTable.user_id, id), gte(BookingTable.start_date, today))).execute();
+    return bookings;
+};
