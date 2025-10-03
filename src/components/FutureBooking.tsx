@@ -17,7 +17,7 @@ export default function FutureBooking({bookings,loading}: Props) {
     if(!loading && bookings.length===0) {
         return (
             <View style={styles.center}>
-                <Text style={styles.noBookingsText}>No past bookings</Text>
+                <Text style={styles.noBookingsText}>No future bookings</Text>
             </View>
         );
     }
@@ -25,7 +25,7 @@ export default function FutureBooking({bookings,loading}: Props) {
     return (
         <View style={styles.container}>
             <Text variant="titleLarge" style={styles.title}>
-                Past Bookings
+                Future Bookings
             </Text>
             <FlatList
                 data={bookings}
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "flex-start",
         alignItems: "center",
-        paddingTop: 200,
+        paddingTop: 100,
     },
     noBookingsText: {
         fontSize: 18,

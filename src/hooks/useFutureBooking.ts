@@ -28,6 +28,6 @@ export function useFutureBookings(user_id: string){
         fetchBookings();
     }, [user_id]);
 
-    return [bookings,loading];
+    return {bookings,loading};
 }
 

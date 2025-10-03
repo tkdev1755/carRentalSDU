@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "flex-start",
         alignItems: "center",
-        paddingTop: 300,
+        paddingTop: 100,
     },
     noBookingsText: {
         fontSize: 18,
