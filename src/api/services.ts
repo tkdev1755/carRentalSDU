@@ -115,4 +115,11 @@ export const getPastBookings = async(id:string) => {
     const bookings = await db.select().from(BookingTable).where(and(eq(BookingTable.user_id, id), lte(BookingTable.end_time, today))).execute();
 
     return bookings;
-}
+};
+
+export const getFutureBookings = async(id:string) => {
+    const db = DataBaseManager.getinstance().getdb();
+    const today = new Date().toISOString().split("T")[0];
+    const bookings = await db.select().from(BookingTable).where(and(eq(BookingTable.user_id, id), gte(BookingTable.start_date, today))).execute();
+    return bookings;
+};
