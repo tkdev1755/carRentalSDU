@@ -4,46 +4,43 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-paper";
 import { getFilteredCars } from "../api/services";
+import { useSnackbar } from "../context/SnackbarContext";
 import { seedDatabase } from "../database/seed";
 
 const handleAdamsPress = async () => {
-
   await seedDatabase();
 
   const filteredCars = await getFilteredCars({
-  maxPrice: 50,
-  isAvailable: true,
+    maxPrice: 50,
+    isAvailable: true,
   });
   //console.log("Filtered cars:", filteredCars);
-  
-  filteredCars.forEach(car => {
-  console.log(`Car: ${car.name}, Price: ${car.price}`);
+
+  filteredCars.forEach((car) => {
+    console.log(`Car: ${car.name}, Price: ${car.price}`);
   });
 
   const filteredCars2 = await getFilteredCars({
-  isAvailable: true
+    isAvailable: true,
   });
-  
-    //console.log("Available cars:", filteredCars2);
-    console.log("Available cars:");
-  
-    filteredCars2.forEach(car => {
-    console.log(`Car: ${car.name}, Price: ${car.price}`);
-    });
 
+  //console.log("Available cars:", filteredCars2);
+  console.log("Available cars:");
+
+  filteredCars2.forEach((car) => {
+    console.log(`Car: ${car.name}, Price: ${car.price}`);
+  });
 };
 
 export const AdamTestingComponent = () => {
-    return (
-        <View style={styles.container}>
-            <Button icon="camera" mode="contained" onPress={handleAdamsPress}>
-                ADAM testing LAND
-            </Button>
-        </View>
-    );
-  };
-
-
+  return (
+    <View style={styles.container}>
+      <Button icon="camera" mode="contained" onPress={handleAdamsPress}>
+        ADAM testing LAND
+      </Button>
+    </View>
+  );
+};
 
 const AmauryTestingComponent = () => {
   return (
@@ -60,14 +57,14 @@ const AmauryTestingComponent = () => {
 };
 
 const HannesTestingComponent = () => {
+  const { showSnackbar } = useSnackbar();
   return (
     <View style={styles.container}>
-      <Button
-        icon="camera"
-        mode="contained"
-        onPress={() => console.log("Pressed")}
-      >
-        HANNES testing LAND
+      <Button mode="contained" onPress={() => showSnackbar("Error: Lorem")}>
+        Show Snackbar with message: "Lorem"
+      </Button>
+      <Button mode="contained" onPress={() => showSnackbar("Error: Ipsum")}>
+        Show Snackbar with message: "Ipsum"
       </Button>
     </View>
   );
