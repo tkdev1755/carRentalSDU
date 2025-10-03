@@ -32,12 +32,10 @@ export default function HomePage() {
         padding:16,
       }}
     >
-        <ScrollView>
-            {!loading && <WelcomeMessage userName={userName} />}
-            <CurrentBooking bookings={bookings} loading={loadingBooking} />
-            <FutureBooking bookings={futureBooking} loading={loadingFuture} />
-            <PastBooking bookings={pastBookings} loading={loadingPast} />
-        </ScrollView>
+        {!loading && <WelcomeMessage userName={userName} />}
+        <CurrentBooking bookings={bookings} loading={loadingBooking} />
+        <FutureBooking bookings={futureBooking} loading={loadingFuture} />
+        <PastBooking bookings={pastBookings} loading={loadingPast} />
     </View>
   );
 }

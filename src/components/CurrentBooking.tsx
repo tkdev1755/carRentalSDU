@@ -24,38 +24,26 @@ export default function CurrentBooking({bookings,loading}:Props){
     }
 
     return (
-        <View style={styles.container}>
-            <Text variant="titleLarge" style={styles.title}>
-                Current Bookings
-            </Text>
-            <FlatList
-                data={bookings}
-                keyExtractor={(item)=>item.id.toString()}
-                renderItem={({item})=> <BookingItem booking={item}/>}
-                contentContainerStyle={styles.list} />
-        </View>
+        <FlatList
+            data={bookings}
+            keyExtractor={(item)=>item.id.toString()}
+            renderItem={({item}) => <BookingItem booking={item}/>}
+            contentContainerStyle={styles.list}
+            showsVerticalScrollIndicator={false}
+        />
     );
 }
 
 const styles=StyleSheet.create({
-    container: {
-        flex:1,
-        marginTop:50,
-    },
-    title:{
-        fontSize:24,
-        fontWeight:'bold',
-        textAlign:'center',
-        marginBottom:20,
-    },
     list:{
         paddingHorizontal:16,
+        paddingBottom:20,
     },
     center:{
         flex:1,
         justifyContent:'flex-start',
         alignItems:"center",
-        paddingTop:100,
+        paddingTop:10,
     },
     noBookingsText: {
         fontSize:18,
