@@ -1,9 +1,8 @@
-import { and, eq, gte, lte } from "drizzle-orm";
+import {and, eq, gte, lte} from "drizzle-orm";
 import DataBaseManager from "../database/database";
-import { BookingTable, CarTable, CarType, UserTable } from "../database/schema";
+import { BookingTable, CarTable, CarType, UserTable, AgencyTable , AgencyType} from "../database/schema";
 import { CarFilters } from "../types/CarFilters";
-import {removeUsesLibraryItemFromMainApplication} from "@expo/config-plugins/build/android/Manifest";
-
+import {INSURANCE_PLANS} from "@/src/api/mocks/insurancePlans";
 
 
 // export const getAvailableCars = async () => {
@@ -27,6 +26,9 @@ export const getCar = async (id: number): Promise<CarType> => {
   .where(eq(CarTable.id, id))
   .execute();
 
+  if (car.length === 0){
+      throw new Error(`Car with id=${id} not found`);
+  }
   return car[0];
 };
 
@@ -85,6 +87,8 @@ export const getUserInfo = async (id: string) => {
         "phoneNumber" : "+330621546712"
     };
 };
+
+export const getInsurancePlans = () => INSURANCE_PLANS
 
 export const updateUserInfo = async (info:any) => {
     console.log(`Updating following user info : ${info.key} - ${info.value}`);

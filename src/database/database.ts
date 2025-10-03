@@ -4,8 +4,20 @@
 // npm install drizzle-orm expo-sqlite
 
 import { drizzle } from "drizzle-orm/expo-sqlite";
+//import 'dotenv/config';
+//import { drizzle } from 'drizzle-orm/postgres-js';
+//import { createClient } from '@supabase/supabase-js';
+//import postgres from 'postgres';
+//import { drizzle } from 'drizzle-orm/supabase-js';
+//import {createClient} from ''
+
+//import { drizzle } from "drizzle-orm/node-postgres";
+//import { Pool } from "pg";
 import * as SQLite from "expo-sqlite";
 import * as schema from "./schema";
+
+//const connectionString = process.env.EXPO_PUBLIC_DATABASE_URL ?? "";
+
 
 class DataBaseManager {
     private static instance: DataBaseManager;
@@ -14,6 +26,10 @@ class DataBaseManager {
     private constructor() {
         const expodb= SQLite.openDatabaseSync("carrental.db");
         this.db= drizzle(expodb, {schema});
+        
+        //const client = postgres("", { prepare: false });
+        //const client = postgres(connectionString);
+        //this.db = drizzle(client);
     }
 
     static getinstance(): DataBaseManager {

@@ -15,6 +15,7 @@ export default function Layout() {
     >
       <Stack.Screen name="index" options={{ title: "CarList" }} />
       <Stack.Screen name="car" options={{ title: "" }} />
+      <Stack.Screen name="BookingPage" options={{ title: "Create reservation" }} />
       {/* screen options are set dynamicaly in car.tsx */}
     </Stack>
   );
