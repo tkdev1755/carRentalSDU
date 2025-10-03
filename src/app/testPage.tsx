@@ -3,34 +3,39 @@ import { CarFilters } from "@/src/types/CarFilters";
 import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-paper";
-import { getFilteredCars } from "../api/services";
+import { cancelBooking, createBooking, getCar } from "../api/services";
 import { seedDatabase } from "../database/seed";
 
 const handleAdamsPress = async () => {
 
   await seedDatabase();
 
-  const filteredCars = await getFilteredCars({
-  maxPrice: 50,
-  isAvailable: true,
-  });
-  //console.log("Filtered cars:", filteredCars);
-  
-  filteredCars.forEach(car => {
-  console.log(`Car: ${car.name}, Price: ${car.price}`);
-  });
+  const bookingData = {
+      start_date: "2025-09-24T10:00:00Z",
+      end_time: "2025-09-25T10:00:00Z",
+      car_id: 1,          // assuming car with id=1 exists
+      user_id: "user123", // assuming user exists
+      agency_id: 0,       // fake agency id
+    };
 
-  const filteredCars2 = await getFilteredCars({
-  isAvailable: true
-  });
-  
-    //console.log("Available cars:", filteredCars2);
-    console.log("Available cars:");
-  
-    filteredCars2.forEach(car => {
-    console.log(`Car: ${car.name}, Price: ${car.price}`);
-    });
+  console.log("➡️ Creating booking...");
+  const newBooking = await createBooking(bookingData);
+  console.log("✅ Booking created:", newBooking);
 
+  // Show car availability after booking
+  const bookedCar = await getCar(bookingData.car_id);
+  console.log("🚗 Car after booking (should be unavailable):", bookedCar);
+
+  // Cancel booking
+  console.log("➡️ Canceling booking...");
+  const cancelResult = await cancelBooking(newBooking.lastInsertRowId as number); 
+  console.log("❌ Booking canceled:", cancelResult);
+
+  // Show car availability after cancellation
+  const carAfterCancel = await getCar(bookingData.car_id);
+  console.log("🚗 Car after cancelation (should be available again):", carAfterCancel);
+
+  
 };
 
 export const AdamTestingComponent = () => {
