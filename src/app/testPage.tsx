@@ -6,6 +6,7 @@ import { Button } from "react-native-paper";
 import { getFilteredCars } from "../api/services";
 import { useSnackbar } from "../context/SnackbarContext";
 import { seedDatabase } from "../database/seed";
+import {Link} from "expo-router";
 
 const handleAdamsPress = async () => {
   await seedDatabase();
@@ -142,18 +143,13 @@ export const TahaTestingComponent = () => {
           console.log("_filters: ", filters);
         }}
       >
+
         Set Seats to 2
       </Button>
-      <Button
-        icon="camera"
-        mode="contained"
-        onPress={async () => {
-          setFilters({} as CarFilters);
-          console.log("_filters: ", filters);
-        }}
-      >
-        reset seats
-      </Button>
+        <Link href={"/cars/BookingPage?id=1"}>
+            Go to cars
+        </Link>
+
 
       <Text>Engine type : {filters.engineType}</Text>
       <Text>

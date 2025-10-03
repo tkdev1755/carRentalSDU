@@ -1,7 +1,8 @@
-import { and, eq, gte, lte } from "drizzle-orm";
+import {and, eq, gte, lte} from "drizzle-orm";
 import DataBaseManager from "../database/database";
-import { BookingTable, CarTable, CarType, UserTable } from "../database/schema";
+import { BookingTable, CarTable, CarType, UserTable, AgencyTable , AgencyType} from "../database/schema";
 import { CarFilters } from "../types/CarFilters";
+import {INSURANCE_PLANS} from "@/src/api/mocks/insurancePlans";
 
 
 // export const getAvailableCars = async () => {
@@ -25,6 +26,9 @@ export const getCar = async (id: number): Promise<CarType> => {
   .where(eq(CarTable.id, id))
   .execute();
 
+  if (car.length === 0){
+      throw new Error(`Car with id=${id} not found`);
+  }
   return car[0];
 };
 
@@ -80,6 +84,8 @@ export const getUserInfo = async (id: string) => {
     return user;
 }
 
+export const getInsurancePlans = () => INSURANCE_PLANS
+
 export const updateUserInfo = async (info:any) => {
     console.log(`Updating following user info : ${info.key} - ${info.value}`);
 
@@ -93,4 +99,18 @@ export const createBooking = async (booking: { start_date:string;end_time:string
   await db.update(CarTable).set({is_available:0}).where(eq(CarTable.id, booking.car_id)).execute(); //maybee see is there is a edge functiun in supabase for more security
 
   return result;
+}
+
+export const getAgencies = async () => {
+    const db = DataBaseManager.getinstance().getdb();
+    return await db.select().from(AgencyTable);
+}
+
+export const getAgency = async (id: number) :Promise<AgencyType> => {
+    const db = DataBaseManager.getinstance().getdb();
+    const result = await db.select().from(AgencyTable).where(eq(AgencyTable.id, id));
+    if (result.length === 0) {
+        throw new Error(`Agency with id=${id} not found`);
+    }
+    return  result[0];
 }
