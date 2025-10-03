@@ -5,6 +5,8 @@ import { useUser } from '../hooks/useUser';
 import { useAppInit} from '../hooks/useAppInit'
 import {useCurrentBookings} from "@/src/hooks/useCurrentBookings";
 import CurrentBooking from "@/src/components/CurrentBooking";
+import { usePastBooking } from "@/src/hooks/usePastBooking";
+import PastBooking from "@/src/components/PastBooking";
 
 export default function HomePage() {
   // //const params: CarFilters = useLocalSearchParams();
@@ -14,6 +16,7 @@ export default function HomePage() {
   const userId = "1";
   const {profileData, loading} = useUser(userId);
   const{bookings,loading:loadingBooking} = useCurrentBookings(userId);
+  const { bookings: pastBookings, loading: loadingPast } = usePastBooking(userId);
 
   const nameField = profileData.find((f) => f.key === "name");
   const userName = nameField?.value ||"_";
@@ -29,6 +32,7 @@ export default function HomePage() {
         <ScrollView>
             {!loading && <WelcomeMessage userName={userName} />}
             <CurrentBooking bookings={bookings} loading={loadingBooking} />
+            <PastBooking bookings={pastBookings} loading={loadingPast} />
         </ScrollView>
     </View>
   );

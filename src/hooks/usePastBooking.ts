@@ -27,5 +27,5 @@ export function usePastBooking(user_id: string){
     };
     fetchBookings();
     }, [user_id]);
-    return bookings;
+    return {bookings, loading};
 }
