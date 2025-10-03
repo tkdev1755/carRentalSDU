@@ -106,14 +106,24 @@ export const getCurrentBookings = async (id:string) => {
     const today = new Date().toISOString().split("T")[0];
 
     const bookings = await db.select().from(BookingTable).where(and(eq(BookingTable.user_id, id),lte(BookingTable.start_date, today), gte(BookingTable.end_time, today))).execute();
-    return [{
-        "id":1,
-        "start_date":"2025-09-25",
-        "end_time":"2025-11-25",
-        "car_id":1,
-        "user_id":"1",
-        "agency_id":1,
-    }];
+    return [
+        {
+            "id":1,
+            "start_date":"2025-09-25",
+            "end_time":"2025-11-25",
+            "car_id":1,
+            "user_id":"1",
+            "agency_id":1,
+        },
+        {
+            "id":2,
+            "start_date":"2025-09-27",
+            "end_time":"2025-11-27",
+            "car_id":4,
+            "user_id":"1",
+            "agency_id":1,
+        }
+        ];
 };
 
 export const getPastBookings = async(id:string) => {

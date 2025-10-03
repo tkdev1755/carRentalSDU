@@ -29,6 +29,7 @@ export default function CurrentBooking({bookings,loading}:Props){
             keyExtractor={(item)=>item.id.toString()}
             renderItem={({item}) => <BookingItem booking={item}/>}
             contentContainerStyle={styles.list}
+            scrollEnabled={false}
             showsVerticalScrollIndicator={false}
         />
     );
