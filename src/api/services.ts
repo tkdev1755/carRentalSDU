@@ -104,6 +104,19 @@ export const createBooking = async (booking: { start_date:string;end_time:string
 
   return result;
 };
+export const getAgencies = async () => {
+  const db = DataBaseManager.getinstance().getdb();
+  return await db.select().from(AgencyTable);
+}
+
+export const getAgency = async (id: number) :Promise<AgencyType> => {
+  const db = DataBaseManager.getinstance().getdb();
+  const result = await db.select().from(AgencyTable).where(eq(AgencyTable.id, id));
+  if (result.length === 0) {
+    throw new Error(`Agency with id=${id} not found`);
+  }
+  return  result[0];
+}
 
 export const getCurrentBookings = async (id:string) => {
     const db = DataBaseManager.getinstance().getdb();
