@@ -1,21 +1,20 @@
 import * as React from "react";
-import { FlatList, View,StyleSheet } from 'react-native';
+import {FlatList, View, StyleSheet} from "react-native";
 import {Text, ActivityIndicator} from 'react-native-paper';
-import BookingItem from "./BookingItem";
-import {Booking} from "../hooks/usePastBooking";
+import BookingItem from "@/src/components/BookingItem";
+import {Booking} from "@/src/hooks/useFutureBooking";
 
 type Props = {bookings: Booking[]; loading:boolean};
 
-export default function PastBooking({bookings,loading}:Props){
-    if(loading){
-        return(
+export default function FutureBooking({bookings,loading}: Props) {
+    if(loading) {
+        return (
             <View style={styles.center}>
-                <ActivityIndicator animating={true} size="large"/>
+                <ActivityIndicator animating={true} size={"large"} />
             </View>
         );
     }
-
-    if(!loading && bookings.length===0){
+    if(!loading && bookings.length===0) {
         return (
             <View style={styles.center}>
                 <Text style={styles.noBookingsText}>No past bookings</Text>
@@ -56,7 +55,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "flex-start",
         alignItems: "center",
-        paddingTop: 300,
+        paddingTop: 200,
     },
     noBookingsText: {
         fontSize: 18,
