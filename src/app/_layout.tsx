@@ -2,10 +2,13 @@ import CustomAppbar from "@/src/components/CustomAppbar";
 import CustomTabbar from "@/src/components/CustomTabbar";
 import { ICONS, IconName } from "@/src/constants/icons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { useMaterial3Theme } from "@pchmn/expo-material3-theme";
 import { Tabs } from "expo-router";
-import React from "react";
-import { PaperProvider } from "react-native-paper";
+import React, { useMemo } from "react";
+import { useColorScheme } from "react-native";
+import { MD3DarkTheme, MD3LightTheme, PaperProvider } from "react-native-paper";
 import CustomSnackbar from "../components/CustomSnackbar";
+import { SETTINGS } from "../constants/settings";
 import { SnackbarProvider } from "../context/SnackbarContext";
 
 const getIcon = (color: string, size: number, name: IconName) => (
@@ -13,8 +16,24 @@ const getIcon = (color: string, size: number, name: IconName) => (
 );
 
 export default function TabLayout() {
+  /**
+   * theming options 💅
+   * please set sourceColor in settings.ts file
+   */
+  const colorScheme = useColorScheme();
+  const { theme } = useMaterial3Theme({
+    sourceColor: SETTINGS.THEME.SOURCE_COLOR,
+  });
+  const paperTheme = useMemo(
+    () =>
+      colorScheme === "dark" && false // remove false when the whole app is finally in react nativ paper 🫠
+        ? { ...MD3DarkTheme, colors: theme.dark }
+        : { ...MD3LightTheme, colors: theme.light },
+    [colorScheme, theme]
+  );
+
   return (
-    <PaperProvider>
+    <PaperProvider theme={paperTheme}>
       <SnackbarProvider>
         <Tabs
           screenOptions={{
@@ -59,7 +78,4 @@ export default function TabLayout() {
       </SnackbarProvider>
     </PaperProvider>
   );
-}
-function useMaterial3Theme(): { theme: any } {
-  throw new Error("Function not implemented.");
 }
