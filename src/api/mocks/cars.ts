@@ -1,6 +1,6 @@
 export const MOCK_CARS = [
     {
-      "id": 0, // ID Of the car, will be used in the bookings to know which car has been booked
+      "id": 1, // ID Of the car, will be used in the bookings to know which car has been booked
       "name": "Volvo XC90", // Name of the model
       "price": 50.90, // Price per day
       "seats": 5, // Number of seats
@@ -13,7 +13,7 @@ export const MOCK_CARS = [
       "image" : "https://www.evspecifications.info/wp-content/uploads/2020/01/volvo-xc90-t8-evchargeplus-00-1-1024x680.png",
     },
     {
-        "id": 1,
+        "id": 2,
         "name": "Tesla Model X",
         "price": 60.90,
         "seats": 7,
@@ -27,7 +27,7 @@ export const MOCK_CARS = [
 
     },
     {
-        "id": 2,
+        "id": 3,
         "name": "Ford Explorer",
         "price": 40.00,
         "seats": 5,
@@ -40,7 +40,7 @@ export const MOCK_CARS = [
         "image" : "https://assets.ford.dk/media/2rnnlteo/explorer_ev_modeloversigt.png?height=335&mode=crop&width=596",
     },
     {
-        "id": 3,
+        "id": 4,
         "name": "Renault 5",
         "price": 29.90,
         "seats": 4,
@@ -54,7 +54,7 @@ export const MOCK_CARS = [
 
     },
     {
-        "id": 4,
+        "id": 5,
         "name": "Volkswagen Golf",
         "price": 35.90,
         "seats": 5,
@@ -68,7 +68,7 @@ export const MOCK_CARS = [
 
     },
     {
-        "id": 5,
+        "id": 6,
         "name": "Hyundai Elantra",
         "price": 50.90,
         "seats": 5,

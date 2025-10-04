@@ -9,7 +9,7 @@ export async function seedDatabase() {
 
     // ** TEMPORARY FIX FOR FILLING THE DATABASE AT THE MOMENT **/
     // TODO  : FIND BETTER WAY TO DO THIS (i don't like ts and react)
-    await db.get(
+    /*await db.get(
         "CREATE TABLE IF NOT EXISTS Car (\n" +
         "    id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
         "    name TEXT NOT NULL,\n" +
@@ -86,6 +86,6 @@ export async function seedDatabase() {
                 phone_number: agency.phone_number,
             }).execute();
         }
-    }
+    }*/
 }
 

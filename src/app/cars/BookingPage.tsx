@@ -1,7 +1,7 @@
 import {useLocalSearchParams} from "expo-router";
 import React, { useState } from "react";
-import {ActivityIndicator, ScrollView, StyleSheet, Text, View} from "react-native";
-import {Button} from "react-native-paper";
+import {ActivityIndicator, ScrollView, StyleSheet, View} from "react-native";
+import {Button, Text, useTheme} from "react-native-paper";
 import {useCar} from "@/src/hooks/useCar";
 import {LocationSelector} from "@/src/components/LocationSelector";
 import {DatePicker} from "@/src/components/DatePicker";
@@ -9,14 +9,17 @@ import {InsuranceOptions} from "@/src/components/InsuranceOptions";
 import {format} from "date-fns";
 import {useSnackbar} from "@/src/context/SnackbarContext";
 import {createBooking} from "@/src/api/services";
+import {useUser} from "@/src/hooks/useUser";
 
+// @ts-ignore
 const BookingPage = () => {
     const { id } = useLocalSearchParams<{ id: string }>();
-
+    const {userID} = useLocalSearchParams<{userID : string}>();
     const {car, isLoading, error } = useCar(parseInt(id, 10));
     const [selectedInsurance, setSelectedInsurance] = useState<number|undefined>(undefined);
     const [startDate, setStartDate] = useState<Date|undefined>(undefined);
     const [endDate, setEndDate] = useState<Date|undefined>(undefined);
+    const theme = useTheme();
     const onInsuranceSelect = (id:number) => {
         console.log(`Selected insurance : ${id}`);
         setSelectedInsurance(id);
@@ -30,6 +33,14 @@ const BookingPage = () => {
         console.log(`End date changed to ${date}`);
         setEndDate(date);
       }
+    }
+    const getPrice = (endDate?:Date, startDate?:Date, price?:number) : number => {
+      if (endDate === undefined || startDate === undefined) {
+        return price ?? 0;
+      }
+      const diffInDays = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24));
+      const total = diffInDays * (price ?? 0);
+      return total;
     }
     const bookCar = async () => {
       if (startDate === undefined || endDate === undefined) {
@@ -65,10 +76,12 @@ const BookingPage = () => {
       else {
         const booking = {
           car_id: car?.id ?? -1,
-          start_date: format(startDate ?? new Date(), "yyyy-MM-dd-HH:mm"),
-          end_time: format(endDate ?? new Date(), "yyyy-MM-dd-HH:mm"),
+          start_date: format(startDate ?? new Date(), "yyyy-MM-dd"),
+          start_time: format(startDate ?? new Date(), "HH:mm"),
+          end_time: format(endDate ?? new Date(), "HH:mm"),
+          end_date: format(endDate ?? new Date(), "yyyy-MM-dd"),
           agency_id: car?.agency_id ?? -1,
-          user_id: "0",
+          user_id: userID ?? 2,
         }
         await createBooking(booking);
       }
@@ -101,11 +114,15 @@ const BookingPage = () => {
                     <InsuranceOptions onSelect={onInsuranceSelect} selectedOption={selectedInsurance}></InsuranceOptions>
                 </View>
                 <View style={styles.margin}>
-                  <Button onPress={ async () => {
-                    await bookCar();
-                  }}>
-                    Book
-                  </Button>
+                  <View style={styles.row}>
+                    <Text variant={"titleLarge"}>Price : {getPrice(endDate,startDate,car?.price).toFixed(1)} €</Text>
+                    <Button  mode="contained-tonal" onPress={ async () => {
+                      await bookCar();
+                    }}>
+                      Book
+                    </Button>
+                  </View>
+
                 </View>
             </View>
         </ScrollView>
@@ -114,6 +131,11 @@ const BookingPage = () => {
 const styles = StyleSheet.create({
     loading : {
          flex: 1, justifyContent: "center", alignItems: "center"
+    },
+    row :{
+      flexDirection : "row",
+       justifyContent : "space-between",
+       alignItems : "center",
     },
     pageLayout : {
         padding : 20

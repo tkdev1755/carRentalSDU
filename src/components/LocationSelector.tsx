@@ -1,8 +1,16 @@
 import {useAgency} from "@/src/hooks/useAgency";
 import {StyleSheet, View} from "react-native";
 import  {useState} from "react";
-import {ActivityIndicator, Text,Menu, Button, Divider, Provider, List} from "react-native-paper"
-import {Colors} from "@/app-example/constants/theme";
+import {
+  ActivityIndicator,
+  Text,
+  Menu,
+  Button,
+  Divider,
+  Provider,
+  List,
+  MD3Theme,
+  useTheme} from "react-native-paper"
 import {Dropdown} from "react-native-paper-dropdown";
 type LocationSelectorProps = {
     agencyId: number
@@ -10,7 +18,7 @@ type LocationSelectorProps = {
 export const LocationSelector : React.FC<LocationSelectorProps> = ({agencyId}) => {
     const {agency, isLoading, error} = useAgency(agencyId);
     const [expanded, setExpanded] = useState(false);
-
+    const styles = createStyles(useTheme());
     if (isLoading){
         return (<View style={styles.loading}>
             <ActivityIndicator size="large"/>
@@ -40,16 +48,16 @@ export const LocationSelector : React.FC<LocationSelectorProps> = ({agencyId}) =
     );
 };
 
-const styles = StyleSheet.create({
+const createStyles = (theme:MD3Theme) => StyleSheet.create({
     loading : {
         flex: 1, justifyContent: "center", alignItems: "center"
     },
     accordion: {
-        borderRadius: 6,
+        borderRadius: 8,
         overflow: "hidden",
         borderStyle: "solid",
-        borderColor : "black",
-        borderWidth: 2,
+        borderColor : theme.colors.inversePrimary,
+        borderWidth: 1.5,
 
     },
     multilineText: {

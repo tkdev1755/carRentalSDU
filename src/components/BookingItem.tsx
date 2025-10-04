@@ -20,7 +20,7 @@ export default function BookingItem({ booking }: Props) {
       <>
         <Card style={styles.card} onPress={() => setVisible(true)}>
             {carImage ? (
-                <Card.Cover source={{ uri: carImage }} />
+                <Card.Cover source={{ uri: carImage }} style={styles.cover}/>
             ) : (
                 <View style={styles.errorContainer}>
                     <Text variant="titleLarge" style={styles.errorText}>Error</Text>
@@ -30,7 +30,7 @@ export default function BookingItem({ booking }: Props) {
                 <Text variant="titleLarge" style={styles.title}>{carName}</Text>
                 <Text variant="bodyMedium">{carType}</Text>
                 <Text variant="bodyMedium">From: {booking.start_date}</Text>
-                <Text variant="bodyMedium">To: {booking.end_time}</Text>
+                <Text variant="bodyMedium">To: {booking.end_date}</Text>
             </Card.Content>
         </Card>
       <BookingModal booking={booking} visible={visible} onDismiss={()=>setVisible(false)} />
@@ -42,7 +42,12 @@ const styles = StyleSheet.create({
     card: {
         marginBottom: 12,
         borderRadius: 12,
+
         elevation: 2,
+    },
+    cover : {
+      backgroundColor: 'transparent',
+      margin : 15
     },
     errorContainer: {
         height: 150,

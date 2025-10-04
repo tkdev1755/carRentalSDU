@@ -11,7 +11,6 @@ export const useAppInit = () => {
             try {
                 setupDateTranslations();
                 console.log("Initializing app");
-                await seedDatabase();
             } catch (e) {
                 console.error(e);
             }

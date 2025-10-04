@@ -33,7 +33,7 @@ export const CarCard: React.FC<CarCardProps> = ({ car }) => {
                         </Text>
                     </View>
                     <View style={styles.detailsRow}>
-                        <Text variant="bodyMedium">
+                        <Text variant="bodyMedium" >
                             Engine : {car.engine}
                         </Text>
                     </View>
@@ -60,6 +60,8 @@ const styles = StyleSheet.create({
     cover: {
         borderTopLeftRadius:12,
         borderTopRightRadius:12,
+        margin : 16,
+        backgroundColor: 'transparent',
     },
     content: {
         padding: 16,
@@ -90,6 +92,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
     },
+
     footer: {
         flexDirection: "row",
         justifyContent: "space-between",
@@ -99,10 +102,11 @@ const styles = StyleSheet.create({
         borderTopColor: 'grey',
     },
     price: {
+        fontSize: 20,
         fontWeight: "bold",
     },
     perDay: {
-        fontSize: 12,
+        fontSize: 20,
         fontWeight: "normal",
     },
     button:{

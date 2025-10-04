@@ -1,8 +1,9 @@
-import {Text,Button, IconButton} from "react-native-paper";
+import {Text, Button, IconButton, MD3Theme} from "react-native-paper";
 import {StyleSheet,View} from "react-native";
 import React,{useState, useCallback} from "react";
 import {DatePickerModal, TimePickerModal} from 'react-native-paper-dates';
 import { format } from "date-fns";
+import { useTheme } from "react-native-paper";
 import title from "react-native-paper/src/components/Typography/v2/Title";
 type DatePickerProps = {
     date?: Date;
@@ -54,6 +55,8 @@ export const DatePicker : React.FC<DatePickerProps> = ({ date, title, onDateChan
         },
         []
     );
+    const theme = useTheme();
+    const styles = createStyles(theme);
     return (
         <View>
             <Text variant={"titleMedium"} style={styles.text}>{title}</Text>
@@ -87,33 +90,34 @@ export const DatePicker : React.FC<DatePickerProps> = ({ date, title, onDateChan
         </View>
     );
 };
-const styles = StyleSheet.create({
-    container: {
-        flexDirection: "row",
-        alignItems: "center",
-        padding: 8,
-        borderStyle: "solid",
-        borderColor : "black",
-        borderWidth: 2,
-        borderRadius: 6,
 
-    },
-    loading : {
-        flex: 1, justifyContent: "center", alignItems: "center"
-    },
-    accordion: {
-        borderRadius: 6,
-        overflow: "hidden",
-        borderStyle: "solid",
-        borderColor : "black",
-        borderWidth: 2,
+const createStyles = (theme: MD3Theme) => StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 8,
+    borderStyle: "solid",
+    borderColor : theme.colors.inversePrimary,
+    borderWidth: 1.5,
+    borderRadius: 8,
 
-    },
-    multilineText: {
-        flexWrap: "wrap",
-    },
-    text : {
-        paddingBottom :10,
-    },
-})
+  },
+  loading : {
+    flex: 1, justifyContent: "center", alignItems: "center"
+  },
+  accordion: {
+    borderRadius: 6,
+    overflow: "hidden",
+    borderStyle: "solid",
+    borderColor : "black",
+    borderWidth: 2,
+
+  },
+  multilineText: {
+    flexWrap: "wrap",
+  },
+  text : {
+    paddingBottom :10,
+  },
+});
 

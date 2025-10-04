@@ -4,7 +4,9 @@ import {getFutureBookings} from '@/src/api/services';
 export type Booking = {
     id: number;
     start_date: string;
+    start_time: string;
     end_time: string;
+    end_date: string;
     user_id: string|null;
     car_id: number|null;
     agency_id: number|null;

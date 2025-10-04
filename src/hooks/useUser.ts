@@ -10,7 +10,7 @@ export type ProfileField = {
 
 export function useUser(userId: string) {
     const [profileData, setProfileData] = useState<ProfileField[]>([
-        { key: "name", label: "Name", value: "" },
+        { key: "first_name", label: "Name", value: "" },
         { key: "email", label: "Email", value: "" },
         { key: "phone", label: "Phone number", value: "" },
     ]);
