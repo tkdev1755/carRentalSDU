@@ -16,13 +16,13 @@ export default function HomePage() {
   // //const { cars, isLoading, error } = useCars(params);
   useAppInit();
 
-  const userId = "1";
+  const userId = "2";
   const {profileData, loading} = useUser(userId);
   const{bookings,loading:loadingBooking} = useCurrentBookings(userId);
   const { bookings: pastBookings, loading: loadingPast } = usePastBooking(userId);
   const { bookings: futureBooking, loading: loadingFuture } = useFutureBookings(userId);
 
-  const nameField = profileData.find((f) => f.key === "name");
+  const nameField = profileData.find((f) => f.key === "first_name");
   const userName = nameField?.value ||"_";
 
   const sections=[

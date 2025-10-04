@@ -61,17 +61,14 @@ export default function ProfileScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#f4f4f4",
         padding: 16,
     },
     cardContainer: {
-        backgroundColor: "#e0e0e0",
         borderRadius: 16,
         padding: 8,
         overflow: "hidden",
     },
     item: {
-        backgroundColor: "#ffffff",
         borderRadius: 8,
         paddingHorizontal: 8,
     },

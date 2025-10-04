@@ -22,7 +22,7 @@ export const TypeFilter: React.FC<TypeFilterProps> = ({ filters, onChange }) => 
     }, [selectedType]);
     return (
         <View>
-            <Text variant="titleMedium">Choose engine type</Text>
+            <Text variant="titleMedium">Choose car type</Text>
             <RadioButton.Group onValueChange={setSelectedType} value={selectedType}>
                 {CAR_TYPES.map(type => (
                     <RadioButton.Item key={type} label={type} value={type} />

@@ -1,20 +1,30 @@
-import {Text, Button, IconButton, Card, List, Divider, useTheme} from "react-native-paper";
+import {Text, Button, IconButton, Card, List, Divider, useTheme, MD3Theme} from "react-native-paper";
 import {useInsurance} from "@/src/hooks/useInsurances";
 import * as React from "react";
 import {StyleSheet, FlatList, View} from "react-native";
 
-const lightenColor = (hex: string, amount: number) => {
-    const sanitizedHex = hex.replace('#', '');
-    const bigint = parseInt(sanitizedHex, 16);
-    let r = (bigint >> 16) & 255;
-    let g = (bigint >> 8) & 255;
-    let b = bigint & 255;
+const lightenColor = (hex: string, amount: number, themeData:MD3Theme) => {
+  // Convertir la couleur de base
+  const sanitizedHex = hex.replace('#', '');
+  const bigint = parseInt(sanitizedHex, 16);
+  let r1 = (bigint >> 16) & 255;
+  let g1 = (bigint >> 8) & 255;
+  let b1 = bigint & 255;
 
-    r = Math.round(r + (255 - r) * amount);
-    g = Math.round(g + (255 - g) * amount);
-    b = Math.round(b + (255 - b) * amount);
+  // Convertir la couleur primaire
+  const sanitizedPrimary = themeData.colors.primary.replace('#', '');
+  const primaryInt = parseInt(sanitizedPrimary, 16);
+  const r2 = (primaryInt >> 16) & 255;
+  const g2 = (primaryInt >> 8) & 255;
+  const b2 = primaryInt & 255;
 
-    return `rgb(${r}, ${g}, ${b})`;
+  // Mélanger les deux couleurs selon le montant
+  const r = Math.round(r1 + (r2 - r1) * amount);
+  const g = Math.round(g1 + (g2 - g1) * amount);
+  const b = Math.round(b1 + (b2 - b1) * amount);
+
+
+  return `rgb(${r}, ${g}, ${b})`;
 };
 
 
@@ -35,6 +45,7 @@ export const InsuranceOptions : React.FC<InsuranceOptionProps> = ({onSelect,sele
             <Text>Insurance Options</Text>
             <FlatList
                 data={insurances}
+                contentContainerStyle={{ paddingLeft: 0 }}
                 horizontal
                 keyExtractor={(item, index) => index.toString()}
                 renderItem={({ item }) => (
@@ -53,7 +64,7 @@ const InsuranceOption = ({ option, onSelect,selectedOption } : {option:any,onSel
     const theme = useTheme();
     const isSelected = selectedOption === option.id;
     return (
-        <Card style={[styles.card, {backgroundColor: isSelected ? lightenColor(theme.colors.onPrimary, 0.7) : lightenColor(option.color, 0.7)}]}>
+        <Card style={[styles.card, {backgroundColor: isSelected ? lightenColor(theme.colors.onPrimary, 0.7,theme) : lightenColor(option.color, 0.1, theme)}]}>
             <Card.Content>
                 <Text variant={"titleLarge"}>{option.name}</Text>
                 <Divider style={{ marginVertical: 8 }} />
@@ -99,6 +110,7 @@ const styles = StyleSheet.create({
     },
     cardWrapper: {
         width: 250, // largeur de chaque carte
+        margin:0,
     },
     selectedColor:{
         color : "#219EBC"

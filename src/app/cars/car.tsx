@@ -1,9 +1,11 @@
 import { IconName, ICONS } from "@/src/constants/icons";
 import { useCar } from "@/src/hooks/useCar";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import { useLocalSearchParams } from "expo-router";
+import {Link, useLocalSearchParams} from "expo-router";
 import { StyleSheet, View } from "react-native";
 import { Button, Card, Text, useTheme } from "react-native-paper";
+
+import {useAgency} from "@/src/hooks/useAgency";
 
 export const FeatureIcon = (text: string, icon: IconName) => (
   <View style={{ flexDirection: 'column', alignItems: 'center', gap: 4 }}>
@@ -17,9 +19,10 @@ export const VerticalSeperator = () => <View style={{ width: 1, backgroundColor:
 export default function Car() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { car, isLoading, error } = useCar(Number(id));
-
+  const {agency} = useAgency(car?.agency_id ?? -1);
   const theme = useTheme();
-
+  console.log(`HERE IS OUR CAR ${id}`);
+  console.log(`HERE IS OUR CAR NAME and ID ${car?.name} - ${car?.id} ${Number(id) === car?.id ? "YES" : "NO"}`);
   if (isLoading) return <Text>Loading...</Text>;
   if (error) return <Text>Error: {error.message}</Text>;
 
@@ -62,30 +65,31 @@ export default function Car() {
           {FeatureIcon(`${5} doors`, ICONS.DOOR)}
           <VerticalSeperator />
           {FeatureIcon(car?.transmission || "Auto", ICONS.TRANSMISSION)}
-          <VerticalSeperator />
-          {FeatureIcon(car?.engine || "Engine", ICONS.ENGINE)}
         </View>
 
         <View style={{ marginTop: 4, padding: 8 }}>
           <View style={styles.rowDetails}>
-            <Text>Model</Text>
-            <Text>Miles: 20,000</Text>
+            <Text>Engine : {car?.engine}</Text>
           </View>
           <View style={styles.rowDetails}>
-            <Text>Color: White</Text>
-            <Text>{car?.is_available ? "Available" : "Not Available"}</Text>
+            <Text>Agency : {agency?.name}</Text>
+            <Text style={{ color: car?.is_available ? theme.colors.primary : theme.colors.error}}>{car?.is_available ? "Available" : "Not Available"}</Text>
           </View>
           <View style={styles.rowDetails}>
-            <Text variant="titleMedium" style={{ color: theme.colors.primary }}>
-              {car?.price}€ / day
-            </Text>
+
           </View>
         </View>
       </Card.Content>
-      <Card.Actions>
-        <Button mode="contained-tonal" onPress={() => {}}>
-          Book Car
-        </Button>
+      <Card.Actions style={{justifyContent: "space-between"}}>
+        <Text variant="titleMedium" style={{ color: theme.colors.primary }}>
+          {car?.price}€ / day
+        </Text>
+
+        <Link href={`/cars/BookingPage?id=${id}`} asChild>
+          <Button mode="contained-tonal">
+            Book Car
+          </Button>
+        </Link>
       </Card.Actions>
     </Card>
   );
@@ -107,6 +111,7 @@ const styles = StyleSheet.create({
     marginLeft: 8,
   },
   image: {
+    backgroundColor : "transparent",
     marginHorizontal: "auto",
     borderRadius: 2,
     marginBottom: 8,

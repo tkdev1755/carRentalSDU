@@ -21,7 +21,7 @@ export const TransmissionFilter: React.FC<TransmissionFilterProps> = ({ filters,
     }, [selectedTransmission]);
     return (
         <View>
-            <Text variant="titleMedium">Choose engine type</Text>
+            <Text variant="titleMedium">Choose transmission type</Text>
             <RadioButton.Group onValueChange={setSelectedTransmission} value={selectedTransmission}>
                 {TRANSMISSION_TYPES.map(type => (
                     <RadioButton.Item key={type} label={type} value={type} />

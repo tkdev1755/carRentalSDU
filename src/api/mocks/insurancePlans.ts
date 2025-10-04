@@ -1,7 +1,7 @@
 export const INSURANCE_PLANS = [
     {
         id: 0,
-        name: "Basic insurance",
+        name: "Basic plan",
         price: 100,
         color: "#CD7F32",
         features: [
@@ -22,7 +22,7 @@ export const INSURANCE_PLANS = [
     },
     {
         id: 1,
-        name: "Standard insurance",
+        name: "Standard plan",
         price: 100,
         features: [
             {
@@ -39,7 +39,7 @@ export const INSURANCE_PLANS = [
             }
         ],
         duration: 365,
-        color: "#C0C0C0" // Argent
+        color: "#9C9C9C" // Argent
     },
     {
         id: 2,
