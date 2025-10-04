@@ -12,7 +12,8 @@ const ICONS = {
   SEAT: "account" as IconName,
   BAGS: "bag-personal" as IconName,
   TRANSMISSION: "car-shift-pattern" as IconName,
-  PRICE_TAG: "price-tag" as IconName,
+  PRICE_TAG: "currency-eur" as IconName,
+  ENGINE: "engine" as IconName,
   DOOR: "car-door" as IconName,
 } as const;
 

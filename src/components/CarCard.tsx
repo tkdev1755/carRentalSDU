@@ -23,24 +23,24 @@ export const CarCard: React.FC<CarCardProps> = ({ car }) => {
                 </View>
                 <View style={styles.details}>
                     <View style={styles.detailsRow}>
-                        <Text variant="bodyMedium" style={styles.detailsText}>
+                        <Text variant="bodyMedium">
                             Type : {car.type}
                         </Text>
                     </View>
                     <View style={styles.detailsRow}>
-                        <Text variant="bodyMedium" style={styles.detailsText}>
+                        <Text variant="bodyMedium">
                             Seats : {car.seats}
                         </Text>
                     </View>
                     <View style={styles.detailsRow}>
-                        <Text variant="bodyMedium" style={styles.detailsText}>
+                        <Text variant="bodyMedium">
                             Engine : {car.engine}
                         </Text>
                     </View>
                 </View>
                 <View style={styles.footer}>
                     <Text variant="bodyMedium" style={styles.price}>
-                        {car.price.toFixed(2)} €<Text style={styles.perDazy}>/day</Text>
+                        {car.price.toFixed(2)} €<Text style={styles.perDay}>/day</Text>
                     </Text>
                     <Button mode="contained" onPress={handlePress} style={styles.button} compact>
                         View details
@@ -76,10 +76,10 @@ const styles = StyleSheet.create({
         textAlign: "left",
     },
     unavailableChip: {
-        backgroundColor: 'black',
+        backgroundColor: 'transparent',
     },
     unavailableText: {
-        color: 'black',
+        color: 'transparent',
         fontSize: 12,
     },
     details: {
@@ -90,25 +90,20 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
     },
-    detailsText: {
-        color: 'black',
-    },
     footer: {
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
         paddingTop: 12,
         borderTopWidth:1,
-        borderTopColor: 'black',
+        borderTopColor: 'grey',
     },
     price: {
         fontWeight: "bold",
-        color: "black",
     },
-    perDazy: {
+    perDay: {
         fontSize: 12,
         fontWeight: "normal",
-        color: "black",
     },
     button:{
         borderRadius: 8,
