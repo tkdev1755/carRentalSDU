@@ -2,9 +2,17 @@ import { IconName, ICONS } from "@/src/constants/icons";
 import { useCar } from "@/src/hooks/useCar";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { useLocalSearchParams } from "expo-router";
-
 import { StyleSheet, View } from "react-native";
 import { Button, Card, Text, useTheme } from "react-native-paper";
+
+export const FeatureIcon = (text: string, icon: IconName) => (
+  <View style={{ flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+    <MaterialCommunityIcons name={icon} color="#666" size={24} />
+    <Text>{text}</Text>
+  </View>
+);
+
+export const VerticalSeperator = () => <View style={{ width: 1, backgroundColor: '#ccc', marginHorizontal: 8 }} />;
 
 export default function Car() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -54,6 +62,8 @@ export default function Car() {
           {FeatureIcon(`${5} doors`, ICONS.DOOR)}
           <VerticalSeperator />
           {FeatureIcon(car?.transmission || "Auto", ICONS.TRANSMISSION)}
+          <VerticalSeperator />
+          {FeatureIcon(car?.engine || "Engine", ICONS.ENGINE)}
         </View>
 
         <View style={{ marginTop: 4, padding: 8 }}>
@@ -94,6 +104,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     justifyContent: "space-around",
     marginHorizontal: 16,
+    marginLeft: 8,
   },
   image: {
     marginHorizontal: "auto",

@@ -1,10 +1,9 @@
 import * as React from "react";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import { Card, Text } from "react-native-paper";
 import { StyleSheet, View } from "react-native";
 import { Booking } from "../hooks/useCurrentBookings";
 import { useCar } from "../hooks/useCar";
-import {useCars} from "@/src/hooks/useCars";
 import {BookingModal} from "@/src/components/BookingModal";
 
 type Props = { booking: Booking };

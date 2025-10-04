@@ -1,10 +1,10 @@
 import * as React from "react";
-import {useEffect, useState} from "react";
-import { Card, Text, Portal, Button, Dialog } from "react-native-paper";
+import { Text, Portal, Button, Dialog } from "react-native-paper";
 import {Image, StyleSheet, View} from "react-native";
 import { Booking } from "../hooks/useCurrentBookings";
 import { useCar } from "../hooks/useCar";
-import {CarCard} from "@/src/components/CarCard";
+import {FeatureIcon} from "@/src/app/cars/car";
+import {ICONS} from "@/src/constants/icons";
 
 type BookingModalProps = {
   booking:Booking;
@@ -18,13 +18,7 @@ export const BookingModal: React.FC<BookingModalProps>= ({booking,onDismiss,visi
   const carImage = car?.image??null;
   const carName = car?.name??null;
   const carType = car?.type??null;
-  const carEngine = car?.engine;
-  const carPrice = car?.price;
-  const carSeats = car?.seats;
-  const carTransmission = car?.transmission;
-  const carTrunkSpace = car?.trunk_space;
-  const carAgencyId = car?.agency_id ? car?.agency_id : null;
-
+  const HorizontalSeperator = () => (<View style={{ height: 1, backgroundColor: "#ccc", marginVertical: 8 }} />);
 
   return (
     <Portal>
@@ -34,16 +28,22 @@ export const BookingModal: React.FC<BookingModalProps>= ({booking,onDismiss,visi
           <View style={styles.bookingInfos}>
             {carImage && (<Image source={{ uri: carImage }} style={{ width: 300, height: 200 }}/>)}
             <Text variant="titleLarge" style={styles.title}>{carName}</Text>
-            <Text variant="bodyLarge">Type : {carType}</Text>
-            <Text variant="bodyLarge">Engine : {carEngine}</Text>
-            <Text variant="bodyLarge">Seats : {carSeats}</Text>
-            <Text variant="bodyLarge">Trunk Space : {carTrunkSpace}</Text>
-            <Text variant="bodyLarge">Transmission : {carTransmission}</Text>
-            <Text variant="bodyLarge">Agency id : {carAgencyId}</Text>
-            <Text variant="bodyLarge">Price : {carPrice}€/day</Text>
-            <Text variant="bodyLarge">Start : {booking.start_date}</Text>
-            <Text variant="bodyLarge">End : {booking.end_time}</Text>
-            <Text variant="bodyLarge">Customer : {booking.user_id}</Text>
+            <Text variant="bodyLarge">{carType}</Text>
+            <View style={[styles.details, styles.summary]}>
+              {FeatureIcon(`${car?.seats} seats`, ICONS.SEAT)}
+              <HorizontalSeperator />
+              {FeatureIcon(`${car?.trunk_space} bags`, ICONS.BAGS)}
+              <HorizontalSeperator />
+              {FeatureIcon(`${5} doors`, ICONS.DOOR)}
+              <HorizontalSeperator />
+              {FeatureIcon(car?.transmission || "Auto", ICONS.TRANSMISSION)}
+              <HorizontalSeperator />
+              {FeatureIcon(`${car?.price}€/day`, ICONS.PRICE_TAG)}
+              <HorizontalSeperator />
+              {FeatureIcon(`${car?.engine}`, ICONS.ENGINE)}
+            </View>
+            <Text variant="titleMedium">Start : {booking.start_date}</Text>
+            <Text variant="titleMedium">End : {booking.end_time}</Text>
           </View>
         </Dialog.Content>
         <Dialog.Actions>
@@ -58,6 +58,11 @@ const styles = StyleSheet.create({
   dialog: {
     borderRadius: 12,
   },
+  summary: {
+    textAlign: "center",
+    justifyContent: "space-around",
+    marginHorizontal: 16,
+  },
   bookingInfos: {
     marginTop: 12,
     gap:4,
@@ -66,4 +71,8 @@ const styles = StyleSheet.create({
     paddingTop: 16,
     fontWeight: "bold",
   },
+  details: {
+    padding: 12,
+    borderWidth: 0.5,
+  }
 });
