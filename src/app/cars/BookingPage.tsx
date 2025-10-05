@@ -1,4 +1,4 @@
-import {useLocalSearchParams} from "expo-router";
+import {router, useLocalSearchParams} from "expo-router";
 import React, {useState} from "react";
 import {ActivityIndicator, ScrollView, StyleSheet, View} from "react-native";
 import {Button, Text, useTheme} from "react-native-paper";
@@ -10,21 +10,27 @@ import {format} from "date-fns";
 import {useSnackbar} from "@/src/context/SnackbarContext";
 import {createBooking} from "@/src/api/services";
 import {useInsurance} from "@/src/hooks/useInsurances";
+import {FilterModal} from "@/src/components/FilterModal";
+import {BookingConfirmationModal} from "@/src/components/BookingConfirmationModal";
+import {start} from "node:repl";
 
 // @ts-ignore
 const BookingPage = () => {
-    const { id } = useLocalSearchParams<{ id: string }>();
-    const {userID} = useLocalSearchParams<{userID : string}>();
-    const {car, isLoading, error } = useCar(parseInt(id, 10));
     const [selectedInsurance, setSelectedInsurance] = useState<any|undefined>(undefined);
-    const {insurances} = useInsurance();
     const [startDate, setStartDate] = useState<Date|undefined>(undefined);
     const [endDate, setEndDate] = useState<Date|undefined>(undefined);
     const [price, setPrice] = useState<number>(0);
+    const [bookingCreation, setBookingCreation] = useState<boolean>(false);
+    const [bookingStatus, setBookingStatus] = useState<boolean>(false);
+    const [currentBooking, setCurrentBooking] = useState<any|undefined>(undefined);
+    const { id } = useLocalSearchParams<{ id: string }>();
+    const {car, isLoading, error } = useCar(parseInt(id, 10));
+    const {userID} = useLocalSearchParams<{userID : string}>();
+    const {insurances} = useInsurance();
     const theme = useTheme();
 
     const onInsuranceSelect = (insurance:any) => {
-        setPrice(getPrice(startDate,endDate,car?.price,insurance))
+        setPrice(getPrice(endDate,startDate,car?.price,insurance))
         setSelectedInsurance(insurance);
     }
 
@@ -32,10 +38,11 @@ const BookingPage = () => {
     const onDateChange = (date:Date, type:string) => {
       if (type === "start") {
         setStartDate(date);
+        setPrice(getPrice(endDate, date, car?.price,selectedInsurance) ?? 0);
       } else if (type === "end") {
         setEndDate(date);
+        setPrice(getPrice(date, startDate, car?.price,selectedInsurance) ?? 0);
       }
-      setPrice(getPrice(endDate, startDate, car?.price,selectedInsurance) ?? 0);
     }
 
     const getPrice = (endDate?:Date, startDate?:Date, price?:number, insurance?:any) : number => {
@@ -84,6 +91,8 @@ const BookingPage = () => {
         return;
       }
       else {
+        setBookingStatus(false);
+        setBookingCreation(true);
         const booking = {
           car_id: car?.id ?? -1,
           start_date: format(startDate ?? new Date(), "yyyy-MM-dd"),
@@ -94,6 +103,9 @@ const BookingPage = () => {
           user_id: userID ?? 2,
         }
         await createBooking(booking);
+        setCurrentBooking(booking);
+        console.log("Booking created");
+        setBookingStatus(true);
       }
     }
     if (isLoading){
@@ -133,6 +145,12 @@ const BookingPage = () => {
                     </Button>
                   </View>
                 </View>
+                <BookingConfirmationModal
+                  visible={bookingCreation}
+                  onDismiss={() => {
+                    setBookingCreation(false);
+                    router.push("/");
+                  }} booked={bookingStatus} bookingInfo={currentBooking}                />
             </View>
         </ScrollView>
     );
