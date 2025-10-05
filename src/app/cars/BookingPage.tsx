@@ -137,7 +137,7 @@ const BookingPage = () => {
                 </View>
                 <View style={styles.margin}>
                   <View style={styles.row}>
-                    <Text variant={"titleLarge"}>Price : {price} €</Text>
+                    <Text variant={"titleLarge"}>Price : {price.toFixed(1)} €</Text>
                     <Button  mode="contained-tonal" onPress={ async () => {
                       await bookCar();
                     }}>
