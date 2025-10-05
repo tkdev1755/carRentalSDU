@@ -2,7 +2,7 @@ export const INSURANCE_PLANS = [
     {
         id: 0,
         name: "Basic plan",
-        price: 100,
+        price: 10,
         color: "#CD7F32",
         features: [
             {
@@ -23,7 +23,7 @@ export const INSURANCE_PLANS = [
     {
         id: 1,
         name: "Standard plan",
-        price: 100,
+        price: 50,
         features: [
             {
                 title: "Extended Liability Insurance",

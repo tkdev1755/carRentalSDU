@@ -29,17 +29,11 @@ const lightenColor = (hex: string, amount: number, themeData:MD3Theme) => {
 
 
 type InsuranceOptionProps = {
-    onSelect: (id: number) => void;
+    onSelect: (insurance:any) => void;
+    insurances: any;
     selectedOption?: number;
 }
-export const InsuranceOptions : React.FC<InsuranceOptionProps> = ({onSelect,selectedOption}) => {
-    const {insurances, isLoading, error} = useInsurance();
-    if (isLoading){
-        return <Text>Loading...</Text>;
-    }
-    else if (error){
-        return <Text>Something went wrong</Text>;
-    }
+export const InsuranceOptions : React.FC<InsuranceOptionProps> = ({onSelect,selectedOption, insurances}) => {
     return (
         <>
             <Text>Insurance Options</Text>
@@ -75,11 +69,11 @@ const InsuranceOption = ({ option, onSelect,selectedOption } : {option:any,onSel
                     </List.Section>
                 ))}
                 <Text variant={"bodyMedium"} style={styles.price}>
-                    Price: ${option.price}
+                    Price: {option.price}€ / day
                 </Text>
             </Card.Content>
             <Card.Actions>
-                <Button mode="contained" onPress={() => onSelect(isSelected ? undefined :option.id)}>
+                <Button mode="contained" onPress={() => onSelect(isSelected ? undefined :option)}>
                     {isSelected? "Unselect" : "Select"}
                 </Button>
             </Card.Actions>

@@ -14,12 +14,7 @@ export default function Car() {
   const { agency } = useAgency(car?.agency_id ?? -1);
 
   //Console logs 🍿
-  console.log(`HERE IS OUR CAR ${id}`);
-  console.log(
-    `HERE IS OUR CAR NAME and ID ${car?.name} - ${car?.id} ${
-      Number(id) === car?.id ? "YES" : "NO"
-    }`
-  );
+
 
   //Page title setting
   useEffect(() => {

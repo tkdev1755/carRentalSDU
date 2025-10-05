@@ -1,5 +1,5 @@
 import {useLocalSearchParams} from "expo-router";
-import React, { useState } from "react";
+import React, {useState} from "react";
 import {ActivityIndicator, ScrollView, StyleSheet, View} from "react-native";
 import {Button, Text, useTheme} from "react-native-paper";
 import {useCar} from "@/src/hooks/useCar";
@@ -9,38 +9,48 @@ import {InsuranceOptions} from "@/src/components/InsuranceOptions";
 import {format} from "date-fns";
 import {useSnackbar} from "@/src/context/SnackbarContext";
 import {createBooking} from "@/src/api/services";
-import {useUser} from "@/src/hooks/useUser";
+import {useInsurance} from "@/src/hooks/useInsurances";
 
 // @ts-ignore
 const BookingPage = () => {
     const { id } = useLocalSearchParams<{ id: string }>();
     const {userID} = useLocalSearchParams<{userID : string}>();
     const {car, isLoading, error } = useCar(parseInt(id, 10));
-    const [selectedInsurance, setSelectedInsurance] = useState<number|undefined>(undefined);
+    const [selectedInsurance, setSelectedInsurance] = useState<any|undefined>(undefined);
+    const {insurances} = useInsurance();
     const [startDate, setStartDate] = useState<Date|undefined>(undefined);
     const [endDate, setEndDate] = useState<Date|undefined>(undefined);
+    const [price, setPrice] = useState<number>(0);
     const theme = useTheme();
-    const onInsuranceSelect = (id:number) => {
-        console.log(`Selected insurance : ${id}`);
-        setSelectedInsurance(id);
+
+    const onInsuranceSelect = (insurance:any) => {
+        setPrice(getPrice(startDate,endDate,car?.price,insurance))
+        setSelectedInsurance(insurance);
     }
-    const {showSnackbar} = useSnackbar()
+
+    const {showSnackbar} = useSnackbar();
     const onDateChange = (date:Date, type:string) => {
       if (type === "start") {
-        console.log(`Start date changed to ${date}`);
         setStartDate(date);
       } else if (type === "end") {
-        console.log(`End date changed to ${date}`);
         setEndDate(date);
       }
+      setPrice(getPrice(endDate, startDate, car?.price,selectedInsurance) ?? 0);
     }
-    const getPrice = (endDate?:Date, startDate?:Date, price?:number) : number => {
+
+    const getPrice = (endDate?:Date, startDate?:Date, price?:number, insurance?:any) : number => {
+      console.log("GETTING PRICE : ");
       if (endDate === undefined || startDate === undefined) {
         return price ?? 0;
       }
+      console.log("Now diff in days:");
       const diffInDays = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24));
-      const total = diffInDays * (price ?? 0);
-      return total;
+      console.log("Now insurance price:");
+      let insurancePrice = (insurance?.price ?? 0) * diffInDays;
+      console.log(
+        `Diff in days : ${diffInDays}, insurance price : ${insurancePrice}, price : ${price}`
+      )
+      return diffInDays * (price ?? 0) + insurancePrice;
     }
     const bookCar = async () => {
       if (startDate === undefined || endDate === undefined) {
@@ -111,18 +121,17 @@ const BookingPage = () => {
                     <DatePicker date={endDate} title={"Drop-off time"} onDateChange={onDateChange} type={"end"}></DatePicker>
                 </View>
                 <View style={styles.margin}>
-                    <InsuranceOptions onSelect={onInsuranceSelect} selectedOption={selectedInsurance}></InsuranceOptions>
+                    <InsuranceOptions onSelect={onInsuranceSelect} selectedOption={selectedInsurance?.id} insurances={insurances}></InsuranceOptions>
                 </View>
                 <View style={styles.margin}>
                   <View style={styles.row}>
-                    <Text variant={"titleLarge"}>Price : {getPrice(endDate,startDate,car?.price).toFixed(1)} €</Text>
+                    <Text variant={"titleLarge"}>Price : {price} €</Text>
                     <Button  mode="contained-tonal" onPress={ async () => {
                       await bookCar();
                     }}>
                       Book
                     </Button>
                   </View>
-
                 </View>
             </View>
         </ScrollView>
