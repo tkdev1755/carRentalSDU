@@ -10,5 +10,6 @@ export const SETTINGS = {
   },
   THEME: {
     SOURCE_COLOR: "#3E8260",
+    ICON_SIZE: 24,
   },
 };
