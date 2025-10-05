@@ -1,6 +1,6 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import { Chip } from "react-native-paper";
+import {Chip, useTheme} from "react-native-paper";
 
 // Props which has to be passed to the FilterOption Component
 // name : Name that will be displayed as Text in the Chip rendered by the FilterOption Component
@@ -8,6 +8,7 @@ import { Chip } from "react-native-paper";
 type FilterOptionProps = {
     name: string;
     associatedFunction: () => void;
+    selectedValue?: string;
 };
 
 /**
@@ -20,10 +21,11 @@ type FilterOptionProps = {
  *    associatedFunction={option.associatedFunction}
  * />
  **/
-export const FilterOption: React.FC<FilterOptionProps> = ({ name, associatedFunction }) => {
+export const FilterOption: React.FC<FilterOptionProps> = ({ name, associatedFunction,selectedValue }) => {
+    const theme = useTheme();
     return (
-        <Chip onPress={associatedFunction} style={styles.chip}>
-            {name}
+        <Chip onPress={associatedFunction} style={styles.chip} selected={selectedValue !== undefined} showSelectedOverlay={true}>
+            {selectedValue ? selectedValue :name}
         </Chip>
     );
 };
@@ -31,7 +33,7 @@ export const FilterOption: React.FC<FilterOptionProps> = ({ name, associatedFunc
 // Props which is used for the FilterOptions component
 // Options : List of FilterOptionProps to automatically create the associated FilterOption component that will be rendered in the FilterOptions Component
 type FilterOptionsProps = {
-    options: { name: string; associatedFunction: () => void }[];
+    options: { name: string; associatedFunction: () => void, selectedValue?: string }[];
     resetFilters: () => void;
 };
 
@@ -49,6 +51,7 @@ export const FilterOptions: React.FC<FilterOptionsProps> = ({ options,resetFilte
                     key={index}
                     name={option.name}
                     associatedFunction={option.associatedFunction}
+                    selectedValue={option.selectedValue}
                 />
             ))}
             <Chip onPress={resetFilters} style={styles.chip} mode={"outlined"}>
