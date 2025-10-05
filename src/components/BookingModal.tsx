@@ -61,7 +61,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               <FeatureIcon text={`${car?.engine}`} icon={ICONS.ENGINE} />
             </View>
             <Text variant="titleMedium">Start : {booking.start_date}</Text>
-            <Text variant="titleMedium">End : {booking.end_time}</Text>
+            <Text variant="titleMedium">End : {booking.end_date}</Text>
           </View>
         </Dialog.Content>
         <Dialog.Actions>

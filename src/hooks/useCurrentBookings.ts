@@ -15,20 +15,18 @@ export type Booking = {
 export function useCurrentBookings(user_id:string) {
     const [bookings, setBookings] = useState<Booking[]>([]);
     const [loading, setLoading] = useState(true);
-
+    const fetchBookings = async () => {
+      try {
+        const data = await getCurrentBookings(user_id);
+        setBookings(data);
+      } catch (err) {
+        console.log("Error while charging the bookings", err);
+      } finally {
+        setLoading(false);
+      }
+    };
     useEffect(() => {
-        const fetchBookings = async () => {
-            try {
-                const data = await getCurrentBookings(user_id);
-                setBookings(data);
-            } catch (err) {
-                console.log("Error while charging the bookings", err);
-            } finally {
-                setLoading(false);
-            }
-        };
-
         fetchBookings();
     }, [user_id]);
-    return { bookings, loading};
+    return { bookings, loading, refetch:fetchBookings};
 }

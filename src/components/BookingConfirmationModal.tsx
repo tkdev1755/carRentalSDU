@@ -37,7 +37,7 @@ const BookingCreationInfo = () => {
     <View>
       <View style={{ flexDirection: "column", justifyContent: "space-between",alignItems:"center" }}>
         <ActivityIndicator size={"large"}></ActivityIndicator>
-        <Text>
+        <Text style={{paddingTop: 20}} variant={"titleMedium"}>
           Hold tight while we confirm your booking.
         </Text>
       </View>
