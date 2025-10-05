@@ -21,7 +21,7 @@ export default function Layout() {
         </View>
       )}
     >
-      <Stack.Screen name="index" options={{ title: "CarList" }} />
+      <Stack.Screen name="index" options={{ title: "Book a Ride" }} />
       <Stack.Screen name="car" options={{ title: "" }} />
       <Stack.Screen
         name="BookingPage"

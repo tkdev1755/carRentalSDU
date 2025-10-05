@@ -4,6 +4,7 @@ import { StyleSheet, View } from "react-native";
 import { Button, Card, Text, useTheme } from "react-native-paper";
 import { ICONS } from "../constants/icons";
 import { AgencyType, CarType } from "../database/schema";
+import CardTitle from "./CardTitle";
 import FeatureIcon from "./FeatureIcon";
 import {useSnackbar} from "@/src/context/SnackbarContext";
 
@@ -38,12 +39,7 @@ const CarDetail = ({ car, agency, id }: CarDetailProps) => {
   return (
     <Card style={{ ...styles.container }}>
       <Card.Cover source={{ uri: car?.image }} style={styles.image} />
-      <Card.Title
-        title={car?.name}
-        subtitle={car?.type}
-        titleVariant="displayMedium"
-        subtitleVariant="labelMedium"
-      />
+      <CardTitle carName={car?.name} carType={car?.type} />
       <Card.Content>
         <View style={[styles.detail, styles.summary]}>
           <FeatureIcon text={`${car?.seats} seats`} icon={ICONS.SEAT} />
