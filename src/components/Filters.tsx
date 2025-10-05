@@ -15,15 +15,34 @@ export const Filters : React.FC<FiltersProps> = (filter: FiltersProps) => {
         isAvailable: false,
     };
     const [activeFilter, setActiveFilter] = useState<string | null>(null);
-    const filtersOptions = [
-        { name: "Engine", associatedFunction: () => {setActiveFilter("Engine")} },
-        { name: "Price", associatedFunction: () => {setActiveFilter("Price")} },
-        { name: "Seats", associatedFunction: () => {setActiveFilter("Seats")}  },
-        { name: "Trunk space", associatedFunction: () => {setActiveFilter("TrunkSpace")}  },
-        { name: "Transmission", associatedFunction: () => {setActiveFilter("Transmission")}  },
-        { name: "Type", associatedFunction: () => {setActiveFilter("Type")}  },
+  const {filters, setFilters} = useFilterParams();
+  const hasSetPriceFilter = filters.minPrice || filters.maxPrice;
+  const filtersOptions = [
+        { name: "Engine", associatedFunction: () => {setActiveFilter("Engine")},
+          selectedValue: filters.engineType,
+        },
+        {
+          name: "Price", associatedFunction: () => {setActiveFilter("Price")},
+          selectedValue: hasSetPriceFilter ? `${filters.minPrice} € - ${filters.maxPrice} €` : undefined,
+        },
+        {
+          name: "Seats", associatedFunction: () => {setActiveFilter("Seats")},
+          selectedValue: filters.seats ? `${filters.seats} seats` : undefined,
+        },
+        {
+          name: "Trunk space", associatedFunction: () => {setActiveFilter("TrunkSpace")},
+          selectedValue: filters.trunkSpace ? `${filters.trunkSpace} luggages` : undefined,
+        },
+
+        {
+          name: "Transmission", associatedFunction: () => {setActiveFilter("Transmission")},
+          selectedValue: filters.transmissionType,
+        },
+        {
+          name: "Type", associatedFunction: () => {setActiveFilter("Type")},
+          selectedValue: filters.type
+        },
     ];
-    const {filters, setFilters} = useFilterParams();
 
     const handleApply = (updated: CarFilters) => {
         setFilters({ ...filters, ...updated });
