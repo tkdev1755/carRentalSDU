@@ -1,4 +1,10 @@
-import { useLocalSearchParams, useNavigation } from "expo-router";
+import {
+  ExternalPathString,
+  RelativePathString,
+  useLocalSearchParams,
+  usePathname,
+  useRouter,
+} from "expo-router";
 
 import { useMemo } from "react";
 import { CarFilters } from "../types/CarFilters";
@@ -51,10 +57,15 @@ const paramsToFilters = (params: Record<string, string>): CarFilters => {
 
 const useFilterParams = () => {
   const stringParams: Record<string, string> = useLocalSearchParams();
-  const navigation = useNavigation();
+  const router = useRouter();
+  const pathname = usePathname();
 
   const setFilters = (filters: CarFilters) => {
-    navigation.replaceParams(filtersToParams(filters) as any);
+    const newParams = filtersToParams(filters);
+    router.replace({
+      pathname: pathname as RelativePathString | ExternalPathString,
+      params: newParams,
+    });
   };
 
   const filters: CarFilters = useMemo(() => {

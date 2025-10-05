@@ -1,28 +1,45 @@
 import { IconName, ICONS } from "@/src/constants/icons";
 import { useCar } from "@/src/hooks/useCar";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import {Link, useLocalSearchParams} from "expo-router";
+import { Link, useLocalSearchParams, useNavigation } from "expo-router";
 import { StyleSheet, View } from "react-native";
 import { Button, Card, Text, useTheme } from "react-native-paper";
 
-import {useAgency} from "@/src/hooks/useAgency";
+import { useAgency } from "@/src/hooks/useAgency";
+import { useEffect } from "react";
 
 export const FeatureIcon = (text: string, icon: IconName) => (
-  <View style={{ flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+  <View style={{ flexDirection: "column", alignItems: "center", gap: 4 }}>
     <MaterialCommunityIcons name={icon} color="#666" size={24} />
     <Text>{text}</Text>
   </View>
 );
 
-export const VerticalSeperator = () => <View style={{ width: 1, backgroundColor: '#ccc', marginHorizontal: 8 }} />;
+export const VerticalSeperator = () => (
+  <View style={{ width: 1, backgroundColor: "#ccc", marginHorizontal: 8 }} />
+);
 
 export default function Car() {
+  //Hooks
+  const theme = useTheme();
+  const navigation = useNavigation();
   const { id } = useLocalSearchParams<{ id: string }>();
   const { car, isLoading, error } = useCar(Number(id));
-  const {agency} = useAgency(car?.agency_id ?? -1);
-  const theme = useTheme();
+  const { agency } = useAgency(car?.agency_id ?? -1);
+
+  //Console logs 🍿
   console.log(`HERE IS OUR CAR ${id}`);
-  console.log(`HERE IS OUR CAR NAME and ID ${car?.name} - ${car?.id} ${Number(id) === car?.id ? "YES" : "NO"}`);
+  console.log(
+    `HERE IS OUR CAR NAME and ID ${car?.name} - ${car?.id} ${
+      Number(id) === car?.id ? "YES" : "NO"
+    }`
+  );
+
+  //Page title setting
+  useEffect(() => {
+    navigation.setOptions({ title: `Details: ${car?.name}` });
+  }, [navigation]);
+
   if (isLoading) return <Text>Loading...</Text>;
   if (error) return <Text>Error: {error.message}</Text>;
 
@@ -73,22 +90,26 @@ export default function Car() {
           </View>
           <View style={styles.rowDetails}>
             <Text>Agency : {agency?.name}</Text>
-            <Text style={{ color: car?.is_available ? theme.colors.primary : theme.colors.error}}>{car?.is_available ? "Available" : "Not Available"}</Text>
+            <Text
+              style={{
+                color: car?.is_available
+                  ? theme.colors.primary
+                  : theme.colors.error,
+              }}
+            >
+              {car?.is_available ? "Available" : "Not Available"}
+            </Text>
           </View>
-          <View style={styles.rowDetails}>
-
-          </View>
+          <View style={styles.rowDetails}></View>
         </View>
       </Card.Content>
-      <Card.Actions style={{justifyContent: "space-between"}}>
+      <Card.Actions style={{ justifyContent: "space-between" }}>
         <Text variant="titleMedium" style={{ color: theme.colors.primary }}>
           {car?.price}€ / day
         </Text>
 
         <Link href={`/cars/BookingPage?id=${id}`} asChild>
-          <Button mode="contained-tonal">
-            Book Car
-          </Button>
+          <Button mode="contained-tonal">Book Car</Button>
         </Link>
       </Card.Actions>
     </Card>
@@ -111,7 +132,7 @@ const styles = StyleSheet.create({
     marginLeft: 8,
   },
   image: {
-    backgroundColor : "transparent",
+    backgroundColor: "transparent",
     marginHorizontal: "auto",
     borderRadius: 2,
     marginBottom: 8,
