@@ -89,9 +89,9 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontWeight: "bold",
-    paddingHorizontal: 16,
+    paddingHorizontal: 0,
     marginBottom: 8,
     marginTop: 12,
-    textAlign: "center",
+    textAlign: "left",
   },
 });
