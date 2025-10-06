@@ -7,6 +7,7 @@ import { Tabs } from "expo-router";
 import React, { useMemo } from "react";
 import { useColorScheme, View } from "react-native";
 import {
+  configureFonts,
   MD3DarkTheme,
   MD3LightTheme,
   PaperProvider,
@@ -15,6 +16,7 @@ import {
 import CustomSnackbar from "../components/molecules/CustomSnackbar";
 import { SETTINGS } from "../constants/settings";
 import { SnackbarProvider } from "../context/SnackbarContext";
+import {useFonts} from "expo-font";
 
 const getIcon = (color: string, size: number, name: IconName) => (
   <MaterialCommunityIcons name={name} color={color} size={size} />
@@ -25,16 +27,55 @@ export default function TabLayout() {
    * theming options 💅
    * please set sourceColor in settings.ts file
    */
-
+  const [loaded] = useFonts({
+    'ClashGrotesk-Extralight': require('@/assets/fonts/ClashGrotesk-Extralight.otf'),
+    'ClashGrotesk-Bold': require('@/assets/fonts/ClashGrotesk-Semibold.otf'),
+    'ClashGrotesk-Medium': require('@/assets/fonts/ClashGrotesk-Medium.otf'),
+    'ClashGrotesk-Regular': require('@/assets/fonts/ClashGrotesk-Regular.otf'),
+  });
   const colorScheme = useColorScheme();
+  const baseFont = {
+    fontFamily: 'ClashGrotesk-Regular',
+  } as const;
+  const baseVariants = configureFonts({ config: baseFont });
+  const customVariants = {
+    // Customize individual base variants:
+    titleMedium: {
+      ...baseVariants.titleMedium,
+      fontFamily: 'ClashGrotesk-Medium',
+    },
+    displayLarge: {
+      ...baseVariants.displayLarge,
+      fontFamily: 'ClashGrotesk-Extralight',
+    },
+    bodyMedium: {
+      ...baseVariants.bodyMedium,
+      fontFamily: 'ClashGrotesk-Regular',
+    },
+    bodySmall: {
+      ...baseVariants.bodySmall,
+      fontFamily: 'ClashGrotesk-Medium',
+    },
+
+
+    // Add own tokens if required:
+
+  } as const;
+
+  const fonts = configureFonts({
+    config: {
+      ...baseVariants,
+      ...customVariants,
+    },
+  });
   const { theme } = useMaterial3Theme({
     sourceColor: SETTINGS.THEME.SOURCE_COLOR,
   });
   const paperTheme = useMemo(
     () =>
       colorScheme === "dark" // remove false when the whole app is finally in react nativ paper 🫠
-        ? { ...MD3DarkTheme, colors: theme.dark }
-        : { ...MD3LightTheme, colors: theme.light },
+        ? { ...MD3DarkTheme, colors: theme.dark, fonts}
+        : { ...MD3LightTheme, colors: theme.light,fonts },
     [colorScheme, theme]
   );
 
