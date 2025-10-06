@@ -6,6 +6,10 @@ import BookingItem from "./BookingItem";
 
 type Props = { bookings: BookingType[] | undefined; loading: boolean };
 
+/**
+ * TODO: Remove whole component
+ * @deprecated
+ */
 export default function PastBooking({ bookings, loading }: Props) {
   if (loading) {
     return (

@@ -1,11 +1,9 @@
-import CurrentBooking from "@/src/components/CurrentBooking";
-import FutureBooking from "@/src/components/FutureBooking";
-import PastBooking from "@/src/components/PastBooking";
 import { useFutureBookings } from "@/src/hooks/useFutureBooking";
 import { usePastBooking } from "@/src/hooks/usePastBooking";
 import * as React from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
+import CurrentBooking from "../components/CurrentBooking";
 import WelcomeMessage from "../components/WelcomeMessage";
 import { useAppInit } from "../hooks/useAppInit";
 import { useCurrentBookings } from "../hooks/useCurrentBookings";
@@ -59,10 +57,10 @@ export default function HomePage() {
           <CurrentBooking bookings={bookings} loading={loadingBooking} />
         )}
         {item.type === "future" && (
-          <FutureBooking bookings={futureBooking} loading={loadingFuture} />
+          <CurrentBooking bookings={futureBooking} loading={loadingFuture} />
         )}
         {item.type === "past" && (
-          <PastBooking bookings={pastBookings} loading={loadingPast} />
+          <CurrentBooking bookings={pastBookings} loading={loadingPast} />
         )}
       </View>
     );

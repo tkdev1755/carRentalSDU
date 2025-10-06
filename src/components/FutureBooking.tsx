@@ -6,6 +6,10 @@ import { BookingType } from "../database/schema";
 
 type Props = { bookings: BookingType[] | undefined; loading: boolean };
 
+/**
+ * TODO: Remove whole component
+ * @deprecated
+ */
 export default function FutureBooking({ bookings, loading }: Props) {
   if (loading) {
     return (
@@ -14,6 +18,7 @@ export default function FutureBooking({ bookings, loading }: Props) {
       </View>
     );
   }
+
   if (!loading && bookings && bookings.length === 0) {
     return (
       <View style={styles.center}>

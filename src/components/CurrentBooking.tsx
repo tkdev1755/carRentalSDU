@@ -6,6 +6,10 @@ import BookingItem from "./BookingItem";
 
 type Props = { bookings: BookingType[] | undefined; loading: boolean };
 
+/**
+ * TODO: Rename to BookingList
+ * TODO: Move into organisms
+ */
 export default function CurrentBooking({ bookings, loading }: Props) {
   if (loading) {
     return (
@@ -18,7 +22,7 @@ export default function CurrentBooking({ bookings, loading }: Props) {
   if (!loading && bookings && bookings.length === 0) {
     return (
       <View style={styles.center}>
-        <Text style={styles.noBookingsText}>No current bookings</Text>
+        <Text style={styles.noBookingsText}>No bookings available</Text>
       </View>
     );
   }
