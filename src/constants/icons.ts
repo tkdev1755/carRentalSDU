@@ -7,7 +7,8 @@ type IconName = ComponentProps<typeof MaterialCommunityIcons>["name"];
 // we get the icons checked at dev time 🎉
 const ICONS = {
   HOME: "home" as IconName,
-  PROFIILE: "carrot" as IconName,
+  PROFIILE: "face-man-profile" as IconName,
+  CARROT: "carrot",
   CARS: "car" as IconName,
   SEAT: "account" as IconName,
   BAGS: "bag-personal" as IconName,

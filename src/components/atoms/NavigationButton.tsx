@@ -1,4 +1,4 @@
-import { ExternalPathString, RelativePathString, router } from "expo-router";
+import { Route, router } from "expo-router";
 import { StyleSheet } from "react-native";
 import { Button } from "react-native-paper";
 
@@ -12,7 +12,7 @@ const NavigationButton = ({
   text,
   disabled,
 }: {
-  pathname: RelativePathString | ExternalPathString;
+  pathname: Route;
   params?: Record<string, any>;
   text: string;
   disabled?: boolean;

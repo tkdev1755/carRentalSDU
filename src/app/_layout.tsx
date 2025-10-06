@@ -85,7 +85,7 @@ export default function TabLayout() {
             options={{
               title: "test page",
               tabBarIcon: ({ color, size }) =>
-                getIcon(color, size, ICONS.PROFIILE),
+                getIcon(color, size, ICONS.CARROT),
             }}
           />
         </Tabs>
