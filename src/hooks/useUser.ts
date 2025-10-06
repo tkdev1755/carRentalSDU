@@ -38,7 +38,6 @@ export function useUser(userId: string) {
     }, [userId]);
 
     const handleSave = async (fieldKey: string, newValue: string) => {
-        console.log(fieldKey, newValue);
         try {
             setProfileData((prev) =>
                 prev.map((field) =>

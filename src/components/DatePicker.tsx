@@ -34,11 +34,9 @@ export const DatePicker : React.FC<DatePickerProps> = ({ date, title, onDateChan
         if (selectedDate) {
             // Combiner la date + heure choisie
             const finalDate = new Date(selectedDate);
-            console.log(params.hours, params.minutes);
             finalDate.setHours(params.hours);
             finalDate.setMinutes(params.minutes);
             setSelectedDate(finalDate);
-            console.log(`Now date is ${finalDate} - type ${type}`);
           onDateChange?.(finalDate, type);
 
         }
@@ -67,7 +65,7 @@ export const DatePicker : React.FC<DatePickerProps> = ({ date, title, onDateChan
                     icon="calendar-month" // Material icon
                     onPress={() => {
                         setOpen(true);
-                        console.log("Ouvrir un date picker");
+
                     }}
                 />
                 <DatePickerModal

@@ -46,47 +46,42 @@ const BookingPage = () => {
     }
 
     const getPrice = (endDate?:Date, startDate?:Date, price?:number, insurance?:any) : number => {
-      console.log("GETTING PRICE : ");
       if (endDate === undefined || startDate === undefined) {
         return price ?? 0;
       }
-      console.log("Now diff in days:");
+
       const diffInDays = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24));
-      console.log("Now insurance price:");
       let insurancePrice = (insurance?.price ?? 0) * diffInDays;
-      console.log(
-        `Diff in days : ${diffInDays}, insurance price : ${insurancePrice}, price : ${price}`
-      )
+
       return diffInDays * (price ?? 0) + insurancePrice;
     }
     const bookCar = async () => {
       if (startDate === undefined || endDate === undefined) {
-        console.log("Start date or end date is undefined");
+
         showSnackbar("Please select a start and end date");
         return;
       }
       else if (selectedInsurance === undefined) {
-        console.log("Insurance option is undefined");
         showSnackbar("Please select an insurance option");
         return;
       }
       else if (startDate > endDate) {
-        console.log("Start date is after end date");
+
         showSnackbar("Start date must be before end date");
         return;
       }
       else if (startDate < new Date()) {
-        console.log("Start date is in the past");
+
         showSnackbar("Start date must be in the future");
         return;
       }
       else if (endDate < new Date()) {
-        console.log("End date is in the past");
+
         showSnackbar("End date must be in the future");
         return;
       }
       else if (endDate.getTime() - startDate.getTime() < 24 * 60 * 60 * 1000) {
-        console.log("Booking must be at least 24 hours long");
+
         showSnackbar("Booking must be at least 24 hours long");
         return;
       }
@@ -104,7 +99,7 @@ const BookingPage = () => {
         }
         await createBooking(booking);
         setCurrentBooking(booking);
-        console.log("Booking created");
+
         setBookingStatus(true);
       }
     }

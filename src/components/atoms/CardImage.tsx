@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 import { Card } from "react-native-paper";
 
 const CardImage = ({ uri }: { uri: string }) => {
-  if (!uri) return null;
+  if (!uri) return <Card.Cover source={require("@/assets/car.png")} />;
   return <Card.Cover source={{ uri }} style={styles.cover} />;
   // TODO: add fallback picture
 };

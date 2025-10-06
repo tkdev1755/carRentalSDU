@@ -50,7 +50,6 @@ export const getUserInfo = async (id: string) => {
     .from(UserTable)
     .where(`id = '2'`)
     .execute();
-  console.log(user);
   if (user.length === 0) {
     throw new Error(`User with id=${id} not found`);
   }
@@ -60,7 +59,7 @@ export const getUserInfo = async (id: string) => {
 export const getInsurancePlans = () => INSURANCE_PLANS;
 
 export const updateUserInfo = async (info: any) => {
-  console.log(`Updating following user info: ${info.key} - ${info.value}`);
+
   const db = DataBaseManager.getinstance().getdb();
   await db
     .update(UserTable)
@@ -97,7 +96,7 @@ export const getAgency = async (id: number): Promise<AgencyType> => {
 export const getCurrentBookings = async (id: string) => {
   const db = DataBaseManager.getinstance().getdb();
   const today = new Date().toISOString().split("T")[0];
-  console.log(`user id is ${id}`);
+
   return await db
     .select()
     .from(BookingTable)

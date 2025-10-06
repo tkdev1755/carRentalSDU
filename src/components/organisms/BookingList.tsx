@@ -1,16 +1,13 @@
 import * as React from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import { ActivityIndicator, Text } from "react-native-paper";
-import { BookingType } from "../database/schema";
-import BookingItem from "./BookingItem";
+import { BookingType } from "../../database/schema";
+import BookingItem from "../BookingItem";
 
 type Props = { bookings: BookingType[] | undefined; loading: boolean };
 
-/**
- * TODO: Rename to BookingList
- * TODO: Move into organisms
- */
-export default function CurrentBooking({ bookings, loading }: Props) {
+
+export default function BookingList({ bookings, loading }: Props) {
   if (loading) {
     return (
       <View style={styles.center}>

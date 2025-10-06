@@ -5,5 +5,4 @@ export const LINKS: { [key: string]: Href } = {
   index: "/",
   profile: "/profile",
   cars: "/cars",
-  testPage : "/testPage"
 };

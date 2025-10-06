@@ -1,7 +1,6 @@
 import useSwr from "swr";
 import { getCar } from "../api/services";
 
-//TODO: derive car class from drizzle and add as : Promise<Car>
 const fetcher = ([, id]: [string, number]) => getCar(id); //if this function throw an error, it'l be collected by SWR;
 
 /**

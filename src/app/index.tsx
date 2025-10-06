@@ -3,7 +3,7 @@ import { usePastBooking } from "@/src/hooks/usePastBooking";
 import * as React from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
-import CurrentBooking from "../components/CurrentBooking";
+import BookingList from "../components/organisms/BookingList";
 import WelcomeMessage from "../components/WelcomeMessage";
 import { useAppInit } from "../hooks/useAppInit";
 import { useCurrentBookings } from "../hooks/useCurrentBookings";
@@ -54,13 +54,13 @@ export default function HomePage() {
           {item.title}
         </Text>
         {item.type === "current" && (
-          <CurrentBooking bookings={bookings} loading={loadingBooking} />
+          <BookingList bookings={bookings} loading={loadingBooking} />
         )}
         {item.type === "future" && (
-          <CurrentBooking bookings={futureBooking} loading={loadingFuture} />
+          <BookingList bookings={futureBooking} loading={loadingFuture} />
         )}
         {item.type === "past" && (
-          <CurrentBooking bookings={pastBookings} loading={loadingPast} />
+          <BookingList bookings={pastBookings} loading={loadingPast} />
         )}
       </View>
     );
