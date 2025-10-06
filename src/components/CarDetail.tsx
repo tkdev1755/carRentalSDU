@@ -1,10 +1,12 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { Card, Text, useTheme } from "react-native-paper";
+import { ICONS } from "../constants/icons";
 import { AgencyType, CarType } from "../database/schema";
 import CardImage from "./atoms/CardImage";
 import CardTitle from "./atoms/CardTitle";
 import NavigationButton from "./atoms/NavigationButton";
+import IconWithInfo from "./molecules/IconWithInfo";
 import CarInfoIcons from "./organisms/CarInfoIcons";
 
 type CarDetailProps = {
@@ -17,15 +19,6 @@ const CarDetail = ({ car, agency, id }: CarDetailProps) => {
   //Hooks
   const theme = useTheme();
   //Component Renderer
-  const VerticalSeperator = () => (
-    <View
-      style={{
-        width: 1,
-        backgroundColor: theme.colors.secondary,
-        marginHorizontal: 8,
-      }}
-    />
-  );
 
   if (!car) return <></>;
 
@@ -41,15 +34,6 @@ const CarDetail = ({ car, agency, id }: CarDetailProps) => {
           </View>
           <View style={styles.rowDetails}>
             <Text>Agency : {agency?.name}</Text>
-            <Text
-              style={{
-                color: car?.is_available
-                  ? theme.colors.primary
-                  : theme.colors.error,
-              }}
-            >
-              {car?.is_available ? "Available" : "Not Available"}
-            </Text>
           </View>
           <View style={styles.rowDetails}></View>
         </View>
@@ -58,12 +42,21 @@ const CarDetail = ({ car, agency, id }: CarDetailProps) => {
         <Text variant="titleMedium" style={{ color: theme.colors.primary }}>
           {car?.price}€ / day
         </Text>
-        <NavigationButton
-          text="Book Car"
-          pathname="/cars/BookingPage"
-          params={{ id: id }}
-          disabled={!(car?.is_available ?? false)}
-        />
+        <View style={{ flexDirection: "column", gap: 4 }}>
+          <NavigationButton
+            text="Book Car"
+            pathname="/cars/BookingPage"
+            params={{ id: id }}
+            disabled={!(car?.is_available ?? false)}
+          />
+          {!car?.is_available ? (
+            <IconWithInfo
+              color={theme.colors.error}
+              icon={ICONS.CAR_NOT_AVAILABLE}
+              text="Not available"
+            />
+          ) : null}
+        </View>
       </Card.Actions>
     </Card>
   );

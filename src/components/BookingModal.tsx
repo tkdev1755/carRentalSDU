@@ -1,12 +1,12 @@
 import * as React from "react";
 import { Image, StyleSheet, View } from "react-native";
 import { Button, Dialog, Portal, Text } from "react-native-paper";
+import { BookingType } from "../database/schema";
 import { useCar } from "../hooks/useCar";
-import { Booking } from "../hooks/useCurrentBookings";
 import CarInfoIcons from "./organisms/CarInfoIcons";
 
 type BookingModalProps = {
-  booking: Booking;
+  booking: BookingType;
   onDismiss: () => void;
   visible: boolean;
 };
@@ -20,9 +20,11 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   const carImage = car?.image ?? null;
   const carName = car?.name ?? null;
   const carType = car?.type ?? null;
-  const HorizontalSeperator = () => (
-    <View style={{ height: 1, backgroundColor: "#ccc", marginVertical: 8 }} />
-  );
+
+  if (!car) {
+    return null;
+    //TODO: error handling?
+  }
 
   return (
     <Portal>
@@ -57,11 +59,6 @@ const styles = StyleSheet.create({
   dialog: {
     borderRadius: 12,
   },
-  summary: {
-    textAlign: "center",
-    justifyContent: "space-around",
-    marginHorizontal: 16,
-  },
   bookingInfos: {
     marginTop: 12,
     gap: 4,
@@ -69,9 +66,5 @@ const styles = StyleSheet.create({
   title: {
     paddingTop: 16,
     fontWeight: "bold",
-  },
-  details: {
-    padding: 12,
-    borderWidth: 0.5,
   },
 });

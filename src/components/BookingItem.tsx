@@ -2,11 +2,12 @@ import { BookingModal } from "@/src/components/BookingModal";
 import * as React from "react";
 import { useState } from "react";
 import { StyleSheet } from "react-native";
-import { Card, Text } from "react-native-paper";
+import { Card } from "react-native-paper";
 import { BookingType } from "../database/schema";
 import { useCar } from "../hooks/useCar";
 import CardImage from "./atoms/CardImage";
 import CardTitle from "./atoms/CardTitle";
+import CardTwoColumn from "./molecules/CardTwoColumn";
 
 type Props = { booking: BookingType };
 
@@ -24,8 +25,10 @@ export default function BookingItem({ booking }: Props) {
         <CardImage uri={carImage as string} />
         <CardTitle carName={car?.name} carType={car?.type} />
         <Card.Content>
-          <Text variant="bodyMedium">From: {booking.start_date}</Text>
-          <Text variant="bodyMedium">To: {booking.end_date}</Text>
+          <CardTwoColumn
+            t1={`From: ${booking.start_date}`}
+            t2={`To: ${booking.end_date}`}
+          />
         </Card.Content>
       </Card>
       <BookingModal

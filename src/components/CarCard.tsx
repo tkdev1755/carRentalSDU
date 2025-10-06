@@ -3,13 +3,14 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import { Card, Text, useTheme } from "react-native-paper";
 import { ICONS } from "../constants/icons";
+import { CarType } from "../database/schema";
 import CardImage from "./atoms/CardImage";
 import CardTitle from "./atoms/CardTitle";
 import NavigationButton from "./atoms/NavigationButton";
 import IconWithInfo from "./molecules/IconWithInfo";
 
 type CarCardProps = {
-  car: any;
+  car: CarType;
 };
 
 export const CarCard: React.FC<CarCardProps> = ({ car }) => {
@@ -24,13 +25,6 @@ export const CarCard: React.FC<CarCardProps> = ({ car }) => {
       <CardImage uri={car.image as string} />
       <CardTitle carName={car.name} carType={car.type} />
       <Card.Content>
-        {!car.is_available && (
-          <IconWithInfo
-            color={theme.colors.error}
-            icon={ICONS.CAR_NOT_AVAILABLE}
-            text="Not available"
-          />
-        )}
         <View style={styles.details}>
           <View style={styles.detailsRow}>
             <Text variant="bodyMedium">Seats: {car.seats}</Text>
@@ -41,7 +35,7 @@ export const CarCard: React.FC<CarCardProps> = ({ car }) => {
         </View>
         <View style={styles.footer}>
           <Text variant="bodyMedium" style={styles.price}>
-            {car.price.toFixed(2)} €<Text style={styles.perDay}>/day</Text>
+            {car.price.toFixed(2)}€<Text style={styles.perDay}> /day</Text>
           </Text>
           <NavigationButton
             text="View details"
@@ -49,6 +43,13 @@ export const CarCard: React.FC<CarCardProps> = ({ car }) => {
             params={{ id: car.id }}
           />
         </View>
+        {!car.is_available && (
+          <IconWithInfo
+            color={theme.colors.error}
+            icon={ICONS.CAR_NOT_AVAILABLE}
+            text="Not available"
+          />
+        )}
       </Card.Content>
     </Card>
   );

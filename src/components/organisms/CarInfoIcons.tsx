@@ -4,18 +4,10 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import FeatureIcon from "../molecules/FeatureIcon";
+import VerticalSeperator from "../molecules/VerticalSeperator";
 
 const CarInfoIcons = ({ car }: { car: CarType }) => {
   const theme = useTheme();
-  const VerticalSeperator = () => (
-    <View
-      style={{
-        width: 1,
-        backgroundColor: theme.colors.secondary,
-        marginHorizontal: 8,
-      }}
-    />
-  );
 
   return (
     <View style={[styles.detail, styles.summary]}>

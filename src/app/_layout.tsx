@@ -32,7 +32,7 @@ export default function TabLayout() {
   });
   const paperTheme = useMemo(
     () =>
-      colorScheme === "dark" || true // remove false when the whole app is finally in react nativ paper 🫠
+      colorScheme === "dark" // remove false when the whole app is finally in react nativ paper 🫠
         ? { ...MD3DarkTheme, colors: theme.dark }
         : { ...MD3LightTheme, colors: theme.light },
     [colorScheme, theme]
