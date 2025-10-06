@@ -1,32 +1,13 @@
-import { useEffect, useState} from "react";
-import { getCurrentBookings} from "@/src/api/services";
+import { getCurrentBookings } from "@/src/api/services";
+import useSwr from "swr";
 
-export type Booking = {
-    id: number;
-    start_date: string;
-    start_time: string;
-    end_date : string;
-    end_time: string;
-    car_id: number|null;
-    user_id: string|null;
-    agency_id: number|null;
+const fetcher = ([, id]: [string, string]) => getCurrentBookings(id);
+
+export const useCurrentBookings = (id: string) => {
+  const { data, error, isLoading } = useSwr(["current_bookings", id], fetcher);
+  return {
+    bookings: data,
+    isLoading,
+    error: error,
+  };
 };
-
-export function useCurrentBookings(user_id:string) {
-    const [bookings, setBookings] = useState<Booking[]>([]);
-    const [loading, setLoading] = useState(true);
-    const fetchBookings = async () => {
-      try {
-        const data = await getCurrentBookings(user_id);
-        setBookings(data);
-      } catch (err) {
-        console.log("Error while charging the bookings", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    useEffect(() => {
-        fetchBookings();
-    }, [user_id]);
-    return { bookings, loading, refetch:fetchBookings};
-}
