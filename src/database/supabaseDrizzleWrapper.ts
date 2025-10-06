@@ -56,7 +56,6 @@ class SupabaseQueryBuilder<T extends SQLiteTable,R = any> {
   }
 
   private applyRawWhere(query: any, whereClause: string): any {
-    // Si la clause ressemble à la syntaxe Supabase ("col.eq.val"), on l'applique directement
     if (whereClause.includes('.eq.') || whereClause.includes('.gte.') || whereClause.includes('.lt.')) {
       if (whereClause.toLowerCase().includes('or(')) {
         return query.or(whereClause);
@@ -64,12 +63,10 @@ class SupabaseQueryBuilder<T extends SQLiteTable,R = any> {
       if (whereClause.toLowerCase().includes('and(')) {
         return query.and(whereClause);
       }
-      // fallback : simple .or() avec la chaîne complète
       return query.or(whereClause);
     }
 
-    // Sinon, parser un SQL "classique" minimal : "price >= 100 AND seats = 4"
-    // ⚠️ simplifié — pas un vrai parseur SQL
+
     const parts = whereClause.split(/\s+AND\s+/i);
     for (const part of parts) {
       const match = part.match(/(\w+)\s*(=|>=|<=|>|<)\s*(.*)/);
@@ -103,13 +100,10 @@ class SupabaseQueryBuilder<T extends SQLiteTable,R = any> {
   }
 
   private parseCondition(query: any, condition: any): any {
-    // Extraire les informations de la condition Drizzle
     const sqlChunks = condition?.sql || condition?._?.sql;
     console.log(`slq chunks are ${condition}`);
     if (!sqlChunks) {
-      // Cas d'une condition composée (and, or)
       if (condition?.operator === 'and') {
-        // Appliquer toutes les conditions
         for (const subCondition of condition?.conditions || []) {
           query = this.parseCondition(query, subCondition);
         }
@@ -229,8 +223,6 @@ class SupabaseUpdateBuilder<T extends SQLiteTable> {
       return query.or(whereClause);
     }
 
-    // Sinon, parser un SQL "classique" minimal : "price >= 100 AND seats = 4"
-    // ⚠️ simplifié — pas un vrai parseur SQL
     const parts = whereClause.split(/\s+AND\s+/i);
     for (const part of parts) {
       const match = part.match(/(\w+)\s*(=|>=|<=|>|<)\s*(.*)/);
