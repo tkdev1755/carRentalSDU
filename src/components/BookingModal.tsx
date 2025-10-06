@@ -1,4 +1,4 @@
-import FeatureIcon from "@/src/components/FeatureIcon";
+import FeatureIcon from "@/src/components/molecules/FeatureIcon";
 import { ICONS } from "@/src/constants/icons";
 import * as React from "react";
 import { Image, StyleSheet, View } from "react-native";

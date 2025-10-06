@@ -1,12 +1,12 @@
-import {Link, router} from "expo-router";
+import { useSnackbar } from "@/src/context/SnackbarContext";
+import { router } from "expo-router";
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { Button, Card, Text, useTheme } from "react-native-paper";
 import { ICONS } from "../constants/icons";
 import { AgencyType, CarType } from "../database/schema";
-import CardTitle from "./CardTitle";
-import FeatureIcon from "./FeatureIcon";
-import {useSnackbar} from "@/src/context/SnackbarContext";
+import CardTitle from "./atoms/CardTitle";
+import FeatureIcon from "./molecules/FeatureIcon";
 
 type CarDetailProps = {
   car: CarType | undefined;
@@ -18,14 +18,14 @@ const CarDetail = ({ car, agency, id }: CarDetailProps) => {
   //Hooks
   const theme = useTheme();
   const handlePress = () => {
-    if (!(car?.is_available ?? false)){
+    if (!(car?.is_available ?? false)) {
       showSnackbar("This car is unavailable, please book another one");
-      return
+      return;
     }
     router.push(`/cars/BookingPage?id=${id}`);
-  }
+  };
   //Component Renderer
-  const {showSnackbar} = useSnackbar();
+  const { showSnackbar } = useSnackbar();
   const VerticalSeperator = () => (
     <View
       style={{
@@ -77,7 +77,9 @@ const CarDetail = ({ car, agency, id }: CarDetailProps) => {
         <Text variant="titleMedium" style={{ color: theme.colors.primary }}>
           {car?.price}€ / day
         </Text>
-        <Button mode="contained-tonal" onPress={handlePress}>{car?.is_available ? "Book Car" : "This car is not available"}</Button>
+        <Button mode="contained-tonal" onPress={handlePress}>
+          {car?.is_available ? "Book Car" : "This car is not available"}
+        </Button>
       </Card.Actions>
     </Card>
   );

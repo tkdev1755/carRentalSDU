@@ -2,7 +2,7 @@ import { router } from "expo-router";
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { Button, Card, Icon, Text, useTheme } from "react-native-paper";
-import CardTitle from "./CardTitle";
+import CardTitle from "./atoms/CardTitle";
 
 type CarCardProps = {
   car: any;

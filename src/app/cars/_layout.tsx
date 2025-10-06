@@ -1,4 +1,4 @@
-import CustomAppbar from "@/src/components/CustomAppbar";
+import CustomAppbar from "@/src/components/organisms/CustomAppbar";
 import { Stack } from "expo-router";
 import { View } from "react-native";
 import { useTheme } from "react-native-paper";

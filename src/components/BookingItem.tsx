@@ -3,11 +3,11 @@ import * as React from "react";
 import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Card, Text } from "react-native-paper";
+import { BookingType } from "../database/schema";
 import { useCar } from "../hooks/useCar";
-import { Booking } from "../hooks/useCurrentBookings";
-import CardTitle from "./CardTitle";
+import CardTitle from "./atoms/CardTitle";
 
-type Props = { booking: Booking };
+type Props = { booking: BookingType };
 
 export default function BookingItem({ booking }: Props) {
   const { car } = useCar(booking.car_id ?? -1);

@@ -1,5 +1,5 @@
-import CustomAppbar from "@/src/components/CustomAppbar";
-import CustomTabbar from "@/src/components/CustomTabbar";
+import CustomAppbar from "@/src/components/organisms/CustomAppbar";
+import CustomTabbar from "@/src/components/organisms/CustomTabbar";
 import { IconName, ICONS } from "@/src/constants/icons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { useMaterial3Theme } from "@pchmn/expo-material3-theme";
@@ -12,7 +12,7 @@ import {
   PaperProvider,
   useTheme,
 } from "react-native-paper";
-import CustomSnackbar from "../components/CustomSnackbar";
+import CustomSnackbar from "../components/molecules/CustomSnackbar";
 import { SETTINGS } from "../constants/settings";
 import { SnackbarProvider } from "../context/SnackbarContext";
 

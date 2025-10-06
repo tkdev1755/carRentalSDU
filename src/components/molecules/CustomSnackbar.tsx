@@ -1,8 +1,8 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import { Portal, Snackbar } from "react-native-paper";
-import { SETTINGS } from "../constants/settings";
-import { useSnackbar } from "../context/SnackbarContext";
+import { SETTINGS } from "../../constants/settings";
+import { useSnackbar } from "../../context/SnackbarContext";
 
 /**
  * Custom Snackbar for global use.
