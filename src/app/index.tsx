@@ -19,9 +19,9 @@ export default function HomePage() {
   const userId = "2";
   const { profileData, loading } = useUser(userId);
   const { bookings, isLoading: loadingBooking } = useCurrentBookings(userId);
-  const { bookings: pastBookings, loading: loadingPast } =
+  const { bookings: pastBookings, isLoading: loadingPast } =
     usePastBooking(userId);
-  const { bookings: futureBooking, loading: loadingFuture } =
+  const { bookings: futureBooking, isLoading: loadingFuture } =
     useFutureBookings(userId);
 
   const nameField = profileData.find((f) => f.key === "first_name");
