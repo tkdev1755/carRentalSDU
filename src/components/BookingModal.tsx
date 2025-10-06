@@ -1,10 +1,9 @@
-import FeatureIcon from "@/src/components/molecules/FeatureIcon";
-import { ICONS } from "@/src/constants/icons";
 import * as React from "react";
 import { Image, StyleSheet, View } from "react-native";
 import { Button, Dialog, Portal, Text } from "react-native-paper";
 import { useCar } from "../hooks/useCar";
 import { Booking } from "../hooks/useCurrentBookings";
+import CarInfoIcons from "./organisms/CarInfoIcons";
 
 type BookingModalProps = {
   booking: Booking;
@@ -41,25 +40,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               {carName}
             </Text>
             <Text variant="bodyLarge">{carType}</Text>
-            <View style={[styles.details, styles.summary]}>
-              <FeatureIcon text={`${car?.seats} seats`} icon={ICONS.SEAT} />
-              <HorizontalSeperator />
-              <FeatureIcon
-                text={`${car?.trunk_space} bags`}
-                icon={ICONS.BAGS}
-              />
-              <HorizontalSeperator />
-              <FeatureIcon text={`${5} doors`} icon={ICONS.DOOR} />
-              <HorizontalSeperator />
-              <FeatureIcon
-                text={car?.transmission || "Auto"}
-                icon={ICONS.TRANSMISSION}
-              />
-              <HorizontalSeperator />
-              <FeatureIcon text={`${car?.price}€/day`} icon={ICONS.PRICE_TAG} />
-              <HorizontalSeperator />
-              <FeatureIcon text={`${car?.engine}`} icon={ICONS.ENGINE} />
-            </View>
+            <CarInfoIcons car={car} />
             <Text variant="titleMedium">Start : {booking.start_date}</Text>
             <Text variant="titleMedium">End : {booking.end_date}</Text>
           </View>

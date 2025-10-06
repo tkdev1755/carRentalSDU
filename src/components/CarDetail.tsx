@@ -1,13 +1,11 @@
-import { useSnackbar } from "@/src/context/SnackbarContext";
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { Card, Text, useTheme } from "react-native-paper";
-import { ICONS } from "../constants/icons";
 import { AgencyType, CarType } from "../database/schema";
 import CardImage from "./atoms/CardImage";
 import CardTitle from "./atoms/CardTitle";
 import NavigationButton from "./atoms/NavigationButton";
-import FeatureIcon from "./molecules/FeatureIcon";
+import CarInfoIcons from "./organisms/CarInfoIcons";
 
 type CarDetailProps = {
   car: CarType | undefined;
@@ -19,7 +17,6 @@ const CarDetail = ({ car, agency, id }: CarDetailProps) => {
   //Hooks
   const theme = useTheme();
   //Component Renderer
-  const { showSnackbar } = useSnackbar();
   const VerticalSeperator = () => (
     <View
       style={{
@@ -30,24 +27,14 @@ const CarDetail = ({ car, agency, id }: CarDetailProps) => {
     />
   );
 
+  if (!car) return <></>;
+
   return (
     <Card style={{ ...styles.container }}>
       <CardImage uri={car?.image as string} />
       <CardTitle carName={car?.name} carType={car?.type} />
       <Card.Content>
-        <View style={[styles.detail, styles.summary]}>
-          <FeatureIcon text={`${car?.seats} seats`} icon={ICONS.SEAT} />
-          <VerticalSeperator />
-          <FeatureIcon text={`${car?.trunk_space} bags`} icon={ICONS.BAGS} />
-          <VerticalSeperator />
-          <FeatureIcon text={`${5} doors`} icon={ICONS.DOOR} />
-          <VerticalSeperator />
-          <FeatureIcon
-            text={car?.transmission || "Auto"}
-            icon={ICONS.TRANSMISSION}
-          />
-        </View>
-
+        <CarInfoIcons car={car} />
         <View style={{ marginTop: 4, padding: 8 }}>
           <View style={styles.rowDetails}>
             <Text>Engine : {car?.engine}</Text>
@@ -93,18 +80,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
   },
-  summary: {
-    textAlign: "center",
-    justifyContent: "space-around",
-    marginHorizontal: 16,
-    marginLeft: 8,
-  },
-  detail: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 16,
-    gap: 8,
-  },
+
   details: {
     padding: 12,
     borderWidth: 0.5,
