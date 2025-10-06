@@ -3,8 +3,8 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 import { useTheme } from "react-native-paper/src/core/theming";
-import { IconName } from "../constants/icons";
-import { SETTINGS } from "../constants/settings";
+import { IconName } from "../../constants/icons";
+import { SETTINGS } from "../../constants/settings";
 
 type FeatureIconProps = {
   text: string;

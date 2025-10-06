@@ -1,4 +1,4 @@
-import CustomAppbar from "@/src/components/CustomAppbar";
+import CustomAppbar from "@/src/components/organisms/CustomAppbar";
 import { Stack } from "expo-router";
 import { View } from "react-native";
 import { useTheme } from "react-native-paper";
@@ -21,7 +21,7 @@ export default function Layout() {
         </View>
       )}
     >
-      <Stack.Screen name="index" options={{ title: "CarList" }} />
+      <Stack.Screen name="index" options={{ title: "Book a Ride" }} />
       <Stack.Screen name="car" options={{ title: "" }} />
       <Stack.Screen
         name="BookingPage"

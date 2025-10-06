@@ -1,5 +1,5 @@
-import CustomAppbar from "@/src/components/CustomAppbar";
-import CustomTabbar from "@/src/components/CustomTabbar";
+import CustomAppbar from "@/src/components/organisms/CustomAppbar";
+import CustomTabbar from "@/src/components/organisms/CustomTabbar";
 import { IconName, ICONS } from "@/src/constants/icons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { useMaterial3Theme } from "@pchmn/expo-material3-theme";
@@ -12,7 +12,7 @@ import {
   PaperProvider,
   useTheme,
 } from "react-native-paper";
-import CustomSnackbar from "../components/CustomSnackbar";
+import CustomSnackbar from "../components/molecules/CustomSnackbar";
 import { SETTINGS } from "../constants/settings";
 import { SnackbarProvider } from "../context/SnackbarContext";
 
@@ -32,7 +32,7 @@ export default function TabLayout() {
   });
   const paperTheme = useMemo(
     () =>
-      colorScheme === "dark" || true // remove false when the whole app is finally in react nativ paper 🫠
+      colorScheme === "dark" // remove false when the whole app is finally in react nativ paper 🫠
         ? { ...MD3DarkTheme, colors: theme.dark }
         : { ...MD3LightTheme, colors: theme.light },
     [colorScheme, theme]
@@ -85,7 +85,7 @@ export default function TabLayout() {
             options={{
               title: "test page",
               tabBarIcon: ({ color, size }) =>
-                getIcon(color, size, ICONS.PROFIILE),
+                getIcon(color, size, ICONS.CARROT),
             }}
           />
         </Tabs>
