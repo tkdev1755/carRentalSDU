@@ -1,11 +1,12 @@
 import { useSnackbar } from "@/src/context/SnackbarContext";
-import { router } from "expo-router";
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { Button, Card, Text, useTheme } from "react-native-paper";
+import { Card, Text, useTheme } from "react-native-paper";
 import { ICONS } from "../constants/icons";
 import { AgencyType, CarType } from "../database/schema";
+import CardImage from "./atoms/CardImage";
 import CardTitle from "./atoms/CardTitle";
+import NavigationButton from "./atoms/NavigationButton";
 import FeatureIcon from "./molecules/FeatureIcon";
 
 type CarDetailProps = {
@@ -17,13 +18,6 @@ type CarDetailProps = {
 const CarDetail = ({ car, agency, id }: CarDetailProps) => {
   //Hooks
   const theme = useTheme();
-  const handlePress = () => {
-    if (!(car?.is_available ?? false)) {
-      showSnackbar("This car is unavailable, please book another one");
-      return;
-    }
-    router.push(`/cars/BookingPage?id=${id}`);
-  };
   //Component Renderer
   const { showSnackbar } = useSnackbar();
   const VerticalSeperator = () => (
@@ -38,7 +32,7 @@ const CarDetail = ({ car, agency, id }: CarDetailProps) => {
 
   return (
     <Card style={{ ...styles.container }}>
-      <Card.Cover source={{ uri: car?.image }} style={styles.image} />
+      <CardImage uri={car?.image as string} />
       <CardTitle carName={car?.name} carType={car?.type} />
       <Card.Content>
         <View style={[styles.detail, styles.summary]}>
@@ -77,9 +71,12 @@ const CarDetail = ({ car, agency, id }: CarDetailProps) => {
         <Text variant="titleMedium" style={{ color: theme.colors.primary }}>
           {car?.price}€ / day
         </Text>
-        <Button mode="contained-tonal" onPress={handlePress}>
-          {car?.is_available ? "Book Car" : "This car is not available"}
-        </Button>
+        <NavigationButton
+          text="Book Car"
+          pathname="/cars/BookingPage"
+          params={{ id: id }}
+          disabled={!(car?.is_available ?? false)}
+        />
       </Card.Actions>
     </Card>
   );
@@ -101,13 +98,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     marginHorizontal: 16,
     marginLeft: 8,
-  },
-  image: {
-    backgroundColor: "transparent",
-    marginHorizontal: "auto",
-    borderRadius: 2,
-    marginBottom: 8,
-    aspectRatio: "16/9",
   },
   detail: {
     flexDirection: "row",

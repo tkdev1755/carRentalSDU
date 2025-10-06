@@ -1,8 +1,12 @@
 import { router } from "expo-router";
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { Button, Card, Icon, Text, useTheme } from "react-native-paper";
+import { Card, Text, useTheme } from "react-native-paper";
+import { ICONS } from "../constants/icons";
+import CardImage from "./atoms/CardImage";
 import CardTitle from "./atoms/CardTitle";
+import NavigationButton from "./atoms/NavigationButton";
+import IconWithInfo from "./molecules/IconWithInfo";
 
 type CarCardProps = {
   car: any;
@@ -17,14 +21,15 @@ export const CarCard: React.FC<CarCardProps> = ({ car }) => {
 
   return (
     <Card style={styles.card} onPress={handlePress}>
-      <Card.Cover source={{ uri: car.image }} style={styles.cover} />
+      <CardImage uri={car.image as string} />
       <CardTitle carName={car.name} carType={car.type} />
-      <Card.Content style={styles.content}>
+      <Card.Content>
         {!car.is_available && (
-          <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
-            <Icon source="car-info" size={12} color={theme.colors.error} />
-            <Text style={{ color: theme.colors.error }}>Not available</Text>
-          </View>
+          <IconWithInfo
+            color={theme.colors.error}
+            icon={ICONS.CAR_NOT_AVAILABLE}
+            text="Not available"
+          />
         )}
         <View style={styles.details}>
           <View style={styles.detailsRow}>
@@ -38,14 +43,11 @@ export const CarCard: React.FC<CarCardProps> = ({ car }) => {
           <Text variant="bodyMedium" style={styles.price}>
             {car.price.toFixed(2)} €<Text style={styles.perDay}>/day</Text>
           </Text>
-          <Button
-            mode="contained"
-            onPress={handlePress}
-            style={styles.button}
-            compact
-          >
-            View details
-          </Button>
+          <NavigationButton
+            text="View details"
+            pathname="/cars/car"
+            params={{ id: car.id }}
+          />
         </View>
       </Card.Content>
     </Card>
@@ -58,13 +60,6 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     elevation: 3,
   },
-  cover: {
-    borderTopLeftRadius: 12,
-    borderTopRightRadius: 12,
-    margin: 16,
-    backgroundColor: "transparent",
-  },
-  content: {},
   header: {
     flexDirection: "row",
     justifyContent: "space-between",

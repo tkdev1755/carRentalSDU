@@ -11,5 +11,9 @@ export const SETTINGS = {
   THEME: {
     SOURCE_COLOR: "#3E8260",
     ICON_SIZE: 24,
+    BUTTON_STYLE: "contained",
+  },
+  ERRORS: {
+    DEFAULT_ERROR: "An error occured. Please try again later.",
   },
 };

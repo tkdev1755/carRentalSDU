@@ -2,11 +2,14 @@ import { CarFilters } from "@/src/types/CarFilters";
 import React from "react";
 import { ActivityIndicator, ScrollView, StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
+import { SETTINGS } from "../constants/settings";
+import { useSnackbar } from "../context/SnackbarContext";
 import { useCars } from "../hooks/useCars";
 import { CarCard } from "./CarCard";
 
 export default function CarList({ filters }: { filters: CarFilters }) {
   const { cars, isLoading, error } = useCars(filters);
+  const { showSnackbar } = useSnackbar();
 
   if (isLoading) {
     return (
@@ -17,12 +20,12 @@ export default function CarList({ filters }: { filters: CarFilters }) {
   }
 
   if (error) {
+    showSnackbar(SETTINGS.ERRORS.DEFAULT_ERROR);
     return (
       <View>
         <Text>An error occured</Text>
       </View>
     );
-    // TODO: throw Snackbar
   }
 
   if (cars == undefined || cars?.length == 0) {

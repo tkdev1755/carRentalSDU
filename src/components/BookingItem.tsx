@@ -1,10 +1,11 @@
 import { BookingModal } from "@/src/components/BookingModal";
 import * as React from "react";
 import { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { Card, Text } from "react-native-paper";
 import { BookingType } from "../database/schema";
 import { useCar } from "../hooks/useCar";
+import CardImage from "./atoms/CardImage";
 import CardTitle from "./atoms/CardTitle";
 
 type Props = { booking: BookingType };
@@ -20,15 +21,7 @@ export default function BookingItem({ booking }: Props) {
   return (
     <>
       <Card style={styles.card} onPress={() => setVisible(true)}>
-        {carImage ? (
-          <Card.Cover source={{ uri: carImage }} style={styles.cover} />
-        ) : (
-          <View style={styles.errorContainer}>
-            <Text variant="titleLarge" style={styles.errorText}>
-              Error
-            </Text>
-          </View>
-        )}
+        <CardImage uri={carImage as string} />
         <CardTitle carName={car?.name} carType={car?.type} />
         <Card.Content>
           <Text variant="bodyMedium">From: {booking.start_date}</Text>
@@ -50,16 +43,6 @@ const styles = StyleSheet.create({
     borderRadius: 12,
 
     elevation: 2,
-  },
-  cover: {
-    backgroundColor: "transparent",
-    margin: 15,
-  },
-  errorContainer: {
-    height: 150,
-    backgroundColor: "#f5f5f5",
-    justifyContent: "center",
-    alignItems: "center",
   },
   errorText: {
     color: "#666",

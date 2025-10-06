@@ -15,6 +15,7 @@ const ICONS = {
   PRICE_TAG: "currency-eur" as IconName,
   ENGINE: "engine" as IconName,
   DOOR: "car-door" as IconName,
+  CAR_NOT_AVAILABLE: "car-info" as IconName,
 } as const;
 
 export { IconName, ICONS };
